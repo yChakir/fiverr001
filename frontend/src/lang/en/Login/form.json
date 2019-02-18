@@ -1,0 +1,11 @@
+{
+    "title": "Login",
+    "subtitle": "Login with your account",
+    "login": "Login",
+    "login-google": "Login with Google",
+    "login-facebook": "Login with Facebook",
+    "email": "Email Address",
+    "password": "Password",
+    "dontHaveAccount": "Don't have an account ?",
+    "forgotPassword": "Forgot Password ?"
+}

@@ -1,0 +1,12 @@
+{
+    "title": "Sign up",
+    "subtitle": "Register a new account",
+    "signup": "Sign up",
+    "signup-google": "Sign up with Google",
+    "signup-facebook": "Sign up with Facebook",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email Address",
+    "password": "Password",
+    "alreadyRegistered": "Already have an account ?"
+}
