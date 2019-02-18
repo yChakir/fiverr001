@@ -2,7 +2,7 @@ package fiverr.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fiverr.entity.User;
-import fiverr.pojo.AccountCredentials;
+import fiverr.vos.AccountCredentials;
 import fiverr.util.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

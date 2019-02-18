@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,7 +19,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,7 +32,7 @@ import java.util.Collection;
 @Table(name = "USERS")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class User implements Serializable, UserDetails {
+public class User extends BaseEntity implements Serializable, UserDetails {
 
     @Id
     @GeneratedValue
@@ -59,24 +62,18 @@ public class User implements Serializable, UserDetails {
     private String password;
 
     @Size(max = 30)
-    @Column(name = "user_image", nullable = false)
+    @Column(name = "user_image")
     private String image = "default";
 
     @Size(max = 20)
-    @Column(name = "user_phone", nullable = false)
+    @Column(name = "user_phone")
     private String phone;
 
-    @Column(name = "deleted")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private boolean deleted;
+    private boolean active = false;
 
-    @CreatedBy
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String createdBy;
-
-    @LastModifiedBy
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String modifiedBy;
+    @OneToMany
+    @NotAudited
+    private List<Token> tokens = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

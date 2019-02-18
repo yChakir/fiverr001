@@ -1,4 +1,4 @@
-package fiverr.pojo;
+package fiverr.configuration;
 
 public interface AppConstants {
 

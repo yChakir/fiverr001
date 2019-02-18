@@ -59,4 +59,12 @@ if (process.env.GOOGLE_ANALYTICS) {
   })
 }
 
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth === true && !store.state.auth.authenticated) {
+    next("/login");
+  } else {
+    next();
+  }
+});
+
 export default router

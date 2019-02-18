@@ -13,73 +13,72 @@
       >
         <material-card
           color="green"
-          title="Login"
-          text="Login to your account"
+          :title="title"
+          :text="subtitle"
         >
           <v-form>
             <v-container py-0>
               <v-layout wrap>
-                <v-flex xs12 md6>
+                <v-flex xs12 md7>
                     <v-layout wrap>
                         <v-flex xs12>
                         <v-text-field
-                            label="Email Address"
+                            v-model="credentials.username"
+                            :label="email"
                             class="green-input"/>
                         </v-flex>
                         <v-flex xs12>
                         <v-text-field
+                            v-model="credentials.password"
                             type="password"
-                            label="Password"
+                            :label="password"
                             class="green-input"/>
                         </v-flex>
                     </v-layout>               
                     <v-flex xs12>
                         <router-link to="/sign-up">
-                            Don't have an account yet ?
+                            {{dontHaveAccount}}
                         </router-link>
                     </v-flex>
                     <v-flex xs12>
                         <router-link to="/sign-up">
-                            Forgot password ?
+                            {{forgotPassword}}
                         </router-link>
                     </v-flex>
                     <v-flex
                     xs12
-                    text-xs-right
-                    >
+                    text-xs-right>
                     <v-btn
+                        @click="submit"
+                        :loading="isLoading"
                         class="mx-0 font-weight-light"
                         color="success"
-                        block
-                    >
-                        Login
+                        block>
+                        {{login}}
                     </v-btn>
                     </v-flex> 
                 </v-flex>
-                <v-divider v-if="!responsive" vertical="true"></v-divider>
-                <v-flex xs12 md5>
+                <v-divider v-if="!responsive" vertical></v-divider>
+                <v-flex xs12 md4>
                     <v-layout wrap>
                         <v-flex xs12>
                         <v-btn
                             class="mx-0 font-weight-light"
                             color="danger"
-                            block
-                        >
-                            Login with Google
+                            block>
+                            {{loginGoogle}}
                         </v-btn>
                         </v-flex>
                         <v-flex xs12>
                         <v-btn
                             block
                             class="mx-0 font-weight-light"
-                            color="info"
-                        >
-                            Login with Facebook
+                            color="indigo">
+                            {{loginFacebook}}
                         </v-btn>
                         </v-flex>
                     </v-layout>
                 </v-flex>
-
               </v-layout>
             </v-container>
           </v-form>
@@ -91,6 +90,76 @@
 
 <script>
 export default {
-  //
+  data: function() {
+    return {
+      credentials: {
+        username: "yassine.chakir@ilemgroup.com",
+        password: "password"
+      },
+      isLoading: false,
+      responsive: false,
+      error: ""
+    };
+  },
+  computed: {
+    title() {
+      return this.$t('Login.form.title');
+    },
+    subtitle() {
+      return this.$t('Login.form.subtitle');
+    },
+    login() {
+      return this.$t('Login.form.login');
+    },
+    loginGoogle() {
+      return this.$t('Login.form.login-google');
+    },
+    loginFacebook() {
+      return this.$t('Login.form.login-facebook');
+    },
+    email() {
+      return this.$t('Login.form.email');
+    },
+    password() {
+      return this.$t('Login.form.password');
+    },
+    dontHaveAccount() {
+      return this.$t('Login.form.dontHaveAccount');
+    },
+    forgotPassword() {
+      return this.$t('Login.form.forgotPassword');
+    }
+  },
+  mounted () {
+    this.onResponsiveInverted()
+    window.addEventListener('resize', this.onResponsiveInverted)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResponsiveInverted)
+  },
+  methods: {
+    onResponsiveInverted () {
+      if (window.innerWidth < 991) {
+        this.responsive = true
+      } else {
+        this.responsive = false
+      }
+    },
+    submit() {
+      this.isLoading = true;
+      const credentials = {...this.credentials};
+      this.error = "";
+      console.debug("credentials: " + JSON.stringify(credentials));
+      this.$store
+        .dispatch("auth/login", credentials)
+        .then(() => {
+          this.$router.push("assignments");
+        })
+        .catch(
+          error => this.error = "Le nom d'utilisateur et / ou mot de passe incorrect"
+        )
+        .finally(() => (this.isLoading = false));
+    }
+  }
 }
 </script>
