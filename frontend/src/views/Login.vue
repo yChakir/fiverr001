@@ -152,7 +152,7 @@ export default {
       this.$store
         .dispatch("auth/login", credentials)
         .then(() => {
-          this.$router.push("assignments");
+          this.$router.push("user-profile");
         })
         .catch(
           () => this.error = "Le nom d'utilisateur et / ou mot de passe incorrect"
