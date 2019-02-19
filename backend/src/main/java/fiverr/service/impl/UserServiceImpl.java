@@ -6,20 +6,21 @@ import fiverr.event.RegistrationEvent;
 import fiverr.exception.ResourceNotFoundException;
 import fiverr.exception.ServiceException;
 import fiverr.pojo.TokenType;
-import fiverr.service.TokenService;
-import fiverr.vos.EmailValidation;
-import fiverr.vos.Registration;
 import fiverr.repository.UserRepository;
 import fiverr.service.EmailService;
+import fiverr.service.TokenService;
 import fiverr.service.UserService;
+import fiverr.util.Translator;
+import fiverr.vos.EmailValidation;
+import fiverr.vos.Registration;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(null);
+        return userRepository.findByEmail(username).orElseThrow(() -> new ResourceNotFoundException(Translator.translate("exception.account.notFound")));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> alreadyExit = userRepository.findByEmail(registration.getEmail());
 
         if (alreadyExit.isPresent()) {
-            throw new ServiceException("User already exist");
+            throw new ServiceException(Translator.translate("exception.account.alreadyExist"));
         }
 
         User user = new User();
@@ -67,10 +68,10 @@ public class UserServiceImpl implements UserService {
 
         user = userRepository.save(user);
 
-        if(user != null) {
+        if (user != null) {
             Token token = tokenService.saveForUser(user, TokenType.REGISTRATION);
 
-            publisher.publishEvent(new RegistrationEvent(this, token));
+            publisher.publishEvent(new RegistrationEvent(this, token, LocaleContextHolder.getLocale()));
         }
 
         return user;
@@ -80,18 +81,18 @@ public class UserServiceImpl implements UserService {
     public void emailValidation(EmailValidation emailValidation) {
         Optional<User> optionalUser = userRepository.findByEmail(emailValidation.getEmail());
 
-        User user = optionalUser.orElseThrow(() -> new ServiceException("Token invalid"));
+        User user = optionalUser.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
 
         Optional<Token> tokenOptional = tokenService.findByUserAndToken(user, emailValidation.getToken());
 
-        Token token = tokenOptional.orElseThrow(() -> new ServiceException("Token invalid"));
+        Token token = tokenOptional.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
 
-        if(token.isUsed()) {
-            throw new ServiceException("Already used");
+        if (token.isUsed()) {
+            throw new ServiceException(Translator.translate("exception.token.alreadyUsed"));
         }
 
-        if(token.getExpireDate().isBefore(LocalDateTime.now())) {
-            throw new ServiceException("Token expired");
+        if (token.getExpireDate().isBefore(LocalDateTime.now())) {
+            throw new ServiceException(Translator.translate("exception.token.tokenExpired"));
         }
 
         token.setUsed(true);

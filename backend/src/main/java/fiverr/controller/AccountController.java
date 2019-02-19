@@ -1,14 +1,15 @@
 package fiverr.controller;
 
+import fiverr.service.UserService;
 import fiverr.vos.EmailValidation;
 import fiverr.vos.Registration;
-import fiverr.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-
-import static fiverr.configuration.AppConstants.REGISTER;
 
 @RestController
 @RequestMapping("api/v1/account")

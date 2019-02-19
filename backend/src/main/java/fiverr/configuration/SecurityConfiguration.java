@@ -1,8 +1,8 @@
 package fiverr.configuration;
 
+import fiverr.filter.JwtAuthenticationFilter;
+import fiverr.filter.JwtAuthorizationFilter;
 import fiverr.util.JwtUtil;
-import fiverr.security.JwtAuthenticationFilter;
-import fiverr.security.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,12 +40,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .csrf().disable()
-                //.cors().disable()
                 .authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/static/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
-        //.anyRequest().denyAll();
 
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), jwtUtil()));
         http.addFilterBefore(new JwtAuthorizationFilter(jwtUtil()), UsernamePasswordAuthenticationFilter.class);
