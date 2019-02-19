@@ -16,18 +16,22 @@ export default [
   },
   {
     path: '/login',
-    view: 'Login'
+    view: 'Login',
+    name: 'Login'
   },
   {
     path: '/email-validation',
+    name: 'Email Validation',
     view: 'EmailValidation'
   },
   {
     path: '/faq',
-    view: 'FAQ'
+    view: 'FAQ',
+    name: 'FAQ'
   },
   {
     path: '/contact',
-    view: 'Contact'
+    view: 'Contact',
+    name: 'Contact'
   }
 ]
