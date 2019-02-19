@@ -156,14 +156,14 @@ export default {
     submit() {
       this.isLoading = true;
       const vo = {...this.vo};
-      this.error = "";
+      this.error = '';
       this.$store
-        .dispatch("auth/register", vo)
+        .dispatch('auth/register', vo)
         .then(() => {
-          
+          this.$router.push(`email-validation?email=${this.vo.email}`)
         })
         .catch(
-          
+          error => this.error = error
         )
         .finally(() => (this.isLoading = false));
     }

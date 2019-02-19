@@ -19,6 +19,10 @@ export default [
     view: 'Login'
   },
   {
+    path: '/email-validation',
+    view: 'EmailValidation'
+  },
+  {
     path: '/faq',
     view: 'FAQ'
   },

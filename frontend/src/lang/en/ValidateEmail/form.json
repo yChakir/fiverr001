@@ -1,0 +1,7 @@
+{
+    "title": "Email Validation",
+    "subtitle": "Please check your email for token to validate it.",
+    "validate": "Validate",
+    "email": "Email Address",
+    "token": "Token"
+}

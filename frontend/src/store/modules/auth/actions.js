@@ -24,6 +24,30 @@ export default {
       commit('logout')
       resolve()
     })
+  },
+  register: function({
+    reject
+  }, vo) {
+    return new Promise((resolve) => {
+      Vue.http.post('api/v1/account/register', vo).then(
+        () => {
+          resolve()
+        }
+      ),
+      error => reject(error)
+    })
+  },
+  validateEmail: function({
+    reject
+  }, vo) {
+    return new Promise((resolve) => {
+      Vue.http.post('api/v1/account/email-validation', vo).then(
+        () => {
+          resolve()
+        }
+      ),
+      error => reject(error)
+    })
   }
 
 }
