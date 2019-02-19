@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -71,8 +69,8 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 
     private boolean active = false;
 
-    @OneToMany
     @NotAudited
+    @OneToMany(targetEntity = Token.class, mappedBy = "user")
     private List<Token> tokens = new ArrayList<>();
 
     @Override
