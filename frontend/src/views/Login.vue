@@ -149,14 +149,13 @@ export default {
       this.isLoading = true;
       const credentials = {...this.credentials};
       this.error = "";
-      console.debug("credentials: " + JSON.stringify(credentials));
       this.$store
         .dispatch("auth/login", credentials)
         .then(() => {
           this.$router.push("assignments");
         })
         .catch(
-          error => this.error = "Le nom d'utilisateur et / ou mot de passe incorrect"
+          () => this.error = "Le nom d'utilisateur et / ou mot de passe incorrect"
         )
         .finally(() => (this.isLoading = false));
     }

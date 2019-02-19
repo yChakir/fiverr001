@@ -5,7 +5,7 @@
  *
  * https://router.vuejs.org/en/
  */
-
+/* eslint-disable */
 // Lib imports
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
@@ -21,7 +21,7 @@ function route (path, view, name) {
     path,
     component: (resovle) => import(
       `@/views/${view}.vue`
-    ).then(resovle)
+      ).then(resovle)
   }
 }
 
@@ -61,10 +61,10 @@ if (process.env.GOOGLE_ANALYTICS) {
 
 router.beforeEach((to, from, next) => {
   if (to.meta.auth === true && !store.state.auth.authenticated) {
-    next("/login");
+    next('/login')
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router

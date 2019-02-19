@@ -1,5 +1,5 @@
 // http://kazupon.github.io/vue-i18n/en/messages.html
-
+// eslint-disable-next-line
 const requireLang = require.context(
   '@/lang',
   true,

@@ -1,3 +1,3 @@
 export default {
-    isAuthenticated: state => state.isAuthenticated
+  isAuthenticated: state => state.isAuthenticated
 }
