@@ -9,7 +9,6 @@ export default {
         response => {
           const authorization = response.headers.map.authorization === undefined ? response.headers.map.Authorization : response.headers.map.authorization
           commit('setAccessToken', authorization[0])
-          commit('login')
           resolve()
         },
         error => {

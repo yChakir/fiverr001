@@ -30,6 +30,7 @@
         py-2
       >
         <router-link
+          v-if="!authenticated"
           v-ripple
           class="toolbar-items"
           to="/sign-up"
@@ -37,6 +38,7 @@
           Sign up
         </router-link>
         <router-link
+          v-if="!authenticated"
           v-ripple
           class="toolbar-items"
           to="/login"
@@ -58,7 +60,7 @@
 <script>
 
 import {
-  mapMutations
+  mapMutations, mapState
 } from 'vuex'
 
 export default {
@@ -88,7 +90,9 @@ export default {
   beforeDestroy () {
     window.removeEventListener('resize', this.onResponsiveInverted)
   },
-
+  computed: {
+    ...mapState('auth', ['authenticated'])
+  },
   methods: {
     ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
     onClickBtn () {
