@@ -122,7 +122,7 @@ export default {
       this.$store
         .dispatch('auth/validateEmail', vo)
         .then(() => {
-          this.$router.push('user-profile')
+          this.$router.push('login')
         })
         .catch(
           error => this.error = error
