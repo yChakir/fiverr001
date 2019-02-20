@@ -43,6 +43,19 @@ public class EmailServiceImpl implements EmailService {
     @EventListener
     public void sendPasswordReset(PasswordResetEvent event) {
         LocaleContextHolder.setLocale(event.getLocale());
+        SimpleMailMessage message = new SimpleMailMessage();
 
+        message.setTo(event.getToken().getUser().getEmail());
+        message.setSubject(Translator.translate("email.forgot-password.title"));
+        message.setText(Translator.translate(
+                "email.forgot-password.body",
+                event.getToken().getUser().getName(),
+                event.getToken().getUser().getSurname(),
+                event.getToken().getUser().getEmail(),
+                event.getToken().getToken()
+                )
+        );
+
+        sender.send(message);
     }
 }

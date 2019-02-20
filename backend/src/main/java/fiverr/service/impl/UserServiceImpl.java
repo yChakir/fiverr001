@@ -2,6 +2,7 @@ package fiverr.service.impl;
 
 import fiverr.entity.Token;
 import fiverr.entity.User;
+import fiverr.event.PasswordResetEvent;
 import fiverr.event.RegistrationEvent;
 import fiverr.exception.ResourceNotFoundException;
 import fiverr.exception.ServiceException;
@@ -13,6 +14,7 @@ import fiverr.service.UserService;
 import fiverr.util.Translator;
 import fiverr.vos.EmailValidation;
 import fiverr.vos.Registration;
+import fiverr.vos.ResetPassword;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -83,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
         User user = optionalUser.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
 
-        Optional<Token> tokenOptional = tokenService.findByUserAndToken(user, emailValidation.getToken());
+        Optional<Token> tokenOptional = tokenService.findByUserAndTokenAndType(user, emailValidation.getToken(), TokenType.REGISTRATION);
 
         Token token = tokenOptional.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
 
@@ -97,6 +100,56 @@ public class UserServiceImpl implements UserService {
 
         token.setUsed(true);
         user.setActive(true);
+
+        tokenService.save(token);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        optionalUser.ifPresent(user -> {
+            List<Token> tokens = tokenService.findAllByUserAndTypeAndNotUsed(user, TokenType.PASSWORD_RESET);
+
+            Optional<Token> optionalToken = tokens.stream()
+                    .filter(token -> token.getExpireDate().isAfter(LocalDateTime.now()))
+                    .findAny();
+
+            Token token;
+            if(optionalToken.isPresent()) {
+                token = optionalToken.get();
+                token.setExpireDate(LocalDateTime.now().plusDays(1));
+            } else {
+                token = new Token(user, TokenType.PASSWORD_RESET);
+            }
+
+            tokenService.save(token);
+
+            publisher.publishEvent(new PasswordResetEvent(this, token, LocaleContextHolder.getLocale()));
+        });
+    }
+
+    @Override
+    public void resetPassword(ResetPassword resetPassword) {
+        Optional<User> optionalUser = userRepository.findByEmail(resetPassword.getEmail());
+
+        User user = optionalUser.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+
+        Optional<Token> tokenOptional = tokenService.findByUserAndTokenAndType(user, resetPassword.getToken(), TokenType.PASSWORD_RESET);
+
+        Token token = tokenOptional.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+
+        if (token.isUsed()) {
+            throw new ServiceException(Translator.translate("exception.token.alreadyUsed"));
+        }
+
+        if (token.getExpireDate().isBefore(LocalDateTime.now())) {
+            throw new ServiceException(Translator.translate("exception.token.tokenExpired"));
+        }
+
+        token.setUsed(true);
+        user.setPassword(encoder.encode(resetPassword.getPassword()));
 
         tokenService.save(token);
         userRepository.save(user);

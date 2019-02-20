@@ -30,6 +30,16 @@ export default [
     view: 'EmailValidation'
   },
   {
+    path: '/forgot-password',
+    name: 'Forgot Password',
+    view: 'ForgotPassword'
+  },
+  {
+    path: '/reset-password',
+    name: 'Reset Password',
+    view: 'ResetPassword'
+  },
+  {
     path: '/logout',
     name: 'logout',
     view: 'Logout'

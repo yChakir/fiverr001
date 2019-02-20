@@ -1,6 +1,6 @@
 {
     "title": "Email Validation",
-    "subtitle": "Please check your email for token to validate it.",
+    "subtitle": "Validate your account (please check your email inbox for the token).",
     "validate": "Validate",
     "email": "Email Address",
     "token": "Token"

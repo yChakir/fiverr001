@@ -49,6 +49,30 @@ export default {
       ),
       error => reject(error)
     })
+  },
+  forgotPassword: function({
+    reject
+  }, vo) {
+    return new Promise((resolve) => {
+      Vue.http.post('api/v1/account/forgot-password', vo).then(
+        () => {
+          resolve()
+        }
+      ),
+      error => reject(error)
+    })
+  },
+  resetPassword: function({
+    reject
+  }, vo) {
+    return new Promise((resolve) => {
+      Vue.http.post('api/v1/account/reset-password', vo).then(
+        () => {
+          resolve()
+        }
+      ),
+      error => reject(error)
+    })
   }
 
 }

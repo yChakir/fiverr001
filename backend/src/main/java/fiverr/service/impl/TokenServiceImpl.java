@@ -9,6 +9,7 @@ import fiverr.service.TokenService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,12 +29,17 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Token> findByUserAndToken(User user, String token) {
-        return repository.findByUserAndToken(user, token);
+    public Optional<Token> findByUserAndTokenAndType(User user, String token, TokenType type) {
+        return repository.findByUserAndTokenAndType(user, token, type);
     }
 
     @Override
     public Token save(Token token) {
         return repository.save(token);
+    }
+
+    @Override
+    public List<Token> findAllByUserAndTypeAndNotUsed(User user, TokenType tokenType) {
+        return repository.findAllByUserAndTypeAndUsedIsFalse(user, tokenType);
     }
 }

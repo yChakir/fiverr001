@@ -2,7 +2,9 @@ package fiverr.controller;
 
 import fiverr.service.UserService;
 import fiverr.vos.EmailValidation;
+import fiverr.vos.ForgotPassword;
 import fiverr.vos.Registration;
+import fiverr.vos.ResetPassword;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,20 @@ public class AccountController {
     public ResponseEntity emailValidation(@RequestBody @Valid EmailValidation emailValidation) {
         userService.emailValidation(emailValidation);
 
-        return ResponseEntity.created(null).build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("forgot-password")
+    public ResponseEntity forgotPassword(@RequestBody ForgotPassword forgotPassword) {
+        userService.forgotPassword(forgotPassword.getEmail());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("reset-password")
+    public ResponseEntity resetPassword(@RequestBody ResetPassword resetPassword) {
+        userService.resetPassword(resetPassword);
+
+        return ResponseEntity.noContent().build();
     }
 }
