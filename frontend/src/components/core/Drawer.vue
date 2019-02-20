@@ -15,7 +15,7 @@
           <v-list-tile-avatar color="white">
             <v-img :src="logo" height="34" contain/>
           </v-list-tile-avatar>
-          <v-list-tile-title class="title">PORTAL.TITLE</v-list-tile-title>
+          <v-list-tile-title class="title">PORTAL.NAME</v-list-tile-title>
         </v-list-tile>
         <v-divider horizontal></v-divider>
         <v-list-tile
@@ -61,6 +61,11 @@ export default {
     },
     links() {
       const result = [
+        {
+          to: "/",
+          icon: "mdi-account",
+          text: "Home"
+        },
         {
           to: "/user-profile",
           icon: "mdi-account",

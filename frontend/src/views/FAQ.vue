@@ -50,7 +50,7 @@ export default {
       );
     },
     panel() {
-      return [...this.items.keys()].map(_ => true);
+      return [...this.items.keys()].map(() => true);
     },
     title() {
       return this.$t("FAQ.data.title");

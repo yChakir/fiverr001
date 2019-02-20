@@ -5,51 +5,43 @@
  */
 export default [
   {
+    path: '/',
+    name: 'Home',
+    view: 'Home'
+  },
+  {
     path: '/user-profile',
     name: 'User Profile',
-    view: 'UserProfile',
-    meta: {
-      requireAuth: true
-    }
+    view: 'UserProfile'
   },
   {
     path: '/sign-up',
     name: 'Sign up',
-    view: 'SignUp',
-    meta: {
-      requireAuth: false
-    }
+    view: 'SignUp'
   },
   {
     path: '/login',
     name: 'Login',
-    view: 'Login',
-    meta: {
-      requireAuth: false
-    }
+    view: 'Login'
   },
   {
     path: '/email-validation',
     name: 'Email Validation',
-    view: 'EmailValidation',
-    meta: {
-      requireAuth: false
-    }
+    view: 'EmailValidation'
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    view: 'Logout'
   },
   {
     path: '/faq',
     name: 'FAQ',
-    view: 'FAQ',
-    meta: {
-      requireAuth: false
-    }
+    view: 'FAQ'
   },
   {
     path: '/contact',
     name: 'Contact',
-    view: 'Contact',
-    meta: {
-      requireAuth: false
-    }
+    view: 'Contact'
   }
 ]
