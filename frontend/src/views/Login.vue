@@ -41,7 +41,7 @@
                         </router-link>
                     </v-flex>
                     <v-flex xs12>
-                        <router-link to="/sign-up">
+                        <router-link to="/forgot-password">
                             {{forgotPassword}}
                         </router-link>
                     </v-flex>

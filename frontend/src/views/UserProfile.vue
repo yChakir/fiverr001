@@ -146,5 +146,10 @@
 <script>
 export default {
   //
+
+  created() {
+    this.$store.dispatch('profile/fetchProfile')
+      .then(result => console.log(result))
+  }
 }
 </script>

@@ -1,0 +1,9 @@
+{
+    "title": "Reset Password",
+    "subtitle": "Resetting your password (please check your email inbox for the token).",
+    "validate": "Validate",
+    "email": "Email Address",
+    "token": "Token",
+    "password": "New Password",
+    "confirmation": "Confirmation"
+}

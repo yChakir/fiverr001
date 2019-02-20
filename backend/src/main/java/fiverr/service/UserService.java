@@ -14,4 +14,6 @@ public interface UserService extends UserDetailsService {
     void forgotPassword(String email);
 
     void resetPassword(ResetPassword resetPassword);
+
+    User findByEmail(String name);
 }

@@ -60,8 +60,8 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     private String password;
 
     @Size(max = 30)
-    @Column(name = "user_image")
-    private String image = "default";
+    @Column(name = "user_avatar")
+    private String avatar = "default";
 
     @Size(max = 20)
     @Column(name = "user_phone")

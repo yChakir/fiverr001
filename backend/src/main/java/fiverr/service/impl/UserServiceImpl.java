@@ -154,4 +154,10 @@ public class UserServiceImpl implements UserService {
         tokenService.save(token);
         userRepository.save(user);
     }
+
+    @Override
+    public User findByEmail(String name) {
+        return userRepository.findByEmail(name)
+                .orElseThrow(() -> new ResourceNotFoundException("exception.account.notFound"));
+    }
 }
