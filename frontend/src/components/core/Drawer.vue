@@ -11,6 +11,13 @@
   >
     <v-img :src="image" height="100%">
       <v-layout class="fill-height" tag="v-list" column>
+        <v-list-tile avatar>
+          <v-list-tile-avatar color="white">
+            <v-img :src="logo" height="34" contain/>
+          </v-list-tile-avatar>
+          <v-list-tile-title class="title">PORTAL.TITLE</v-list-tile-title>
+        </v-list-tile>
+        <v-divider horizontal></v-divider>
         <v-list-tile
           v-for="(link, i) in links"
           :key="i"
@@ -69,10 +76,16 @@ export default {
           to: "/contact",
           icon: "mdi-format-font",
           text: "Contact"
+        },
+        {
+          to: "/logout",
+          icon: "mdi-format-font",
+          text: "Logout",
+          requireAuth: true
         }
       ];
 
-      return result.filter(item => !item.requireAuth || this.authenticated)
+      return result.filter(item => !item.requireAuth || this.authenticated);
     }
   },
   mounted() {
