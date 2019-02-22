@@ -4,14 +4,14 @@ import fiverr.entity.Token;
 import fiverr.entity.User;
 import fiverr.event.PasswordResetEvent;
 import fiverr.event.RegistrationEvent;
-import fiverr.exception.ResourceNotFoundException;
-import fiverr.exception.ServiceException;
+import fiverr.exception.ClientException;
 import fiverr.pojo.TokenType;
 import fiverr.repository.UserRepository;
 import fiverr.service.EmailService;
 import fiverr.service.TokenService;
 import fiverr.service.UserService;
 import fiverr.util.Translator;
+import fiverr.vos.ChangePassword;
 import fiverr.vos.EmailValidation;
 import fiverr.vos.Registration;
 import fiverr.vos.ResetPassword;
@@ -52,7 +52,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(() -> new ResourceNotFoundException(Translator.translate("exception.account.notFound")));
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(Translator.translate("exception.account.notFound")));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> alreadyExit = userRepository.findByEmail(registration.getEmail());
 
         if (alreadyExit.isPresent()) {
-            throw new ServiceException(Translator.translate("exception.account.alreadyExist"));
+            throw new ClientException(Translator.translate("exception.account.alreadyExist"));
         }
 
         User user = new User();
@@ -84,18 +85,18 @@ public class UserServiceImpl implements UserService {
     public void emailValidation(EmailValidation emailValidation) {
         Optional<User> optionalUser = userRepository.findByEmail(emailValidation.getEmail());
 
-        User user = optionalUser.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+        User user = optionalUser.orElseThrow(() -> new ClientException(Translator.translate("exception.token.invalidToken")));
 
         Optional<Token> tokenOptional = tokenService.findByUserAndTokenAndType(user, emailValidation.getToken(), TokenType.REGISTRATION);
 
-        Token token = tokenOptional.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+        Token token = tokenOptional.orElseThrow(() -> new ClientException(Translator.translate("exception.token.invalidToken")));
 
         if (token.isUsed()) {
-            throw new ServiceException(Translator.translate("exception.token.alreadyUsed"));
+            throw new ClientException(Translator.translate("exception.token.alreadyUsed"));
         }
 
         if (token.getExpireDate().isBefore(LocalDateTime.now())) {
-            throw new ServiceException(Translator.translate("exception.token.tokenExpired"));
+            throw new ClientException(Translator.translate("exception.token.tokenExpired"));
         }
 
         token.setUsed(true);
@@ -134,18 +135,18 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(ResetPassword resetPassword) {
         Optional<User> optionalUser = userRepository.findByEmail(resetPassword.getEmail());
 
-        User user = optionalUser.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+        User user = optionalUser.orElseThrow(() -> new ClientException(Translator.translate("exception.token.invalidToken")));
 
         Optional<Token> tokenOptional = tokenService.findByUserAndTokenAndType(user, resetPassword.getToken(), TokenType.PASSWORD_RESET);
 
-        Token token = tokenOptional.orElseThrow(() -> new ServiceException(Translator.translate("exception.token.invalidToken")));
+        Token token = tokenOptional.orElseThrow(() -> new ClientException(Translator.translate("exception.token.invalidToken")));
 
         if (token.isUsed()) {
-            throw new ServiceException(Translator.translate("exception.token.alreadyUsed"));
+            throw new ClientException(Translator.translate("exception.token.alreadyUsed"));
         }
 
         if (token.getExpireDate().isBefore(LocalDateTime.now())) {
-            throw new ServiceException(Translator.translate("exception.token.tokenExpired"));
+            throw new ClientException(Translator.translate("exception.token.tokenExpired"));
         }
 
         token.setUsed(true);
@@ -158,6 +159,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String name) {
         return userRepository.findByEmail(name)
-                .orElseThrow(() -> new ResourceNotFoundException("exception.account.notFound"));
+                .orElseThrow(() -> new UsernameNotFoundException(Translator.translate("exception.account.notFound")));
+    }
+
+    @Override
+    public void changePassword(String email, ChangePassword changePassword) {
+        if (!changePassword.getConfirmation().equals(changePassword.getNewPassword())) {
+            throw new ClientException(Translator.translate("exception.change-password.notMatch"));
+        }
+
+        if (changePassword.getNewPassword().equals(changePassword.getCurrentPassword())) {
+            throw new ClientException(Translator.translate("exception.change-password.matchOld"));
+        }
+
+        User user = findByEmail(email);
+
+        if (!encoder.matches(changePassword.getCurrentPassword(), user.getPassword())) {
+            throw new ClientException(Translator.translate("exception.change-password.wrongPassword"));
+        }
+
+        user.setPassword(encoder.encode(changePassword.getNewPassword()));
+
+        userRepository.save(user);
     }
 }

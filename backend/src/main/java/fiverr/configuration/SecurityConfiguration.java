@@ -1,7 +1,7 @@
 package fiverr.configuration;
 
+import fiverr.filter.CorsFilter;
 import fiverr.filter.JwtAuthenticationFilter;
-import fiverr.filter.JwtAuthorizationFilter;
 import fiverr.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean(), jwtUtil()));
-        http.addFilterBefore(new JwtAuthorizationFilter(jwtUtil()), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new CorsFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

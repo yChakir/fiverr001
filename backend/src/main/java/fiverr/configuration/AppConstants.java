@@ -1,24 +1,31 @@
 package fiverr.configuration;
 
-public interface AppConstants {
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class AppConstants {
 
     /**
      * API prefix
      */
-    String API = "api";
+    public static final String API = "api";
 
     /**
      * API version 1
      */
-    String V1 = "v1";
+    public static final String V1 = "v1";
 
     /**
      * Register end point path
      */
-    String REGISTER = API + "/" + V1 + "/register";
+    public static final String REGISTER = API + "/" + V1 + "/register";
 
     /**
      * Profile end point path
      */
-    String PROFILE = API + "/" + V1 + "/profile";
+    public static final String PROFILE = API + "/" + V1 + "/profile";
+
+    @Value("${app.front-end.path}")
+    public static String FE_PATH;
 }

@@ -11,6 +11,7 @@ export default {
     state.authenticated = true
   },
   logout (state) {
+    Vue.http.headers.common['Authorization'] = null
     localStorage.removeItem('token')
     state.authenticated = false
   }

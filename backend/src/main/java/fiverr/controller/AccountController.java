@@ -38,14 +38,14 @@ public class AccountController {
     }
 
     @PostMapping("forgot-password")
-    public ResponseEntity forgotPassword(@RequestBody ForgotPassword forgotPassword) {
+    public ResponseEntity forgotPassword(@RequestBody @Valid ForgotPassword forgotPassword) {
         userService.forgotPassword(forgotPassword.getEmail());
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("reset-password")
-    public ResponseEntity resetPassword(@RequestBody ResetPassword resetPassword) {
+    public ResponseEntity resetPassword(@RequestBody @Valid ResetPassword resetPassword) {
         userService.resetPassword(resetPassword);
 
         return ResponseEntity.noContent().build();

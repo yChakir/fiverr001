@@ -12,7 +12,8 @@ public class UserToProfileConverter implements Converter<User, Profile> {
                 source.getSurname(),
                 source.getEmail(),
                 source.getPhone(),
-                source.getAvatar()
+                source.getAvatar(),
+                source.getCreated().toLocalDate()
         );
     }
 }

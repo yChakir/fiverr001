@@ -2,15 +2,15 @@ package fiverr.controller;
 
 import fiverr.entity.User;
 import fiverr.service.UserService;
+import fiverr.vos.ChangePassword;
 import fiverr.vos.Profile;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
@@ -35,5 +35,14 @@ public class ProfileController {
         Profile profile = conversionService.convert(user, Profile.class);
 
         return ResponseEntity.ok(profile);
+    }
+
+    @PostMapping("change-password")
+    public ResponseEntity changePassword(
+            @RequestBody @Valid ChangePassword changePassword, Principal principal
+    ) {
+        userService.changePassword(principal.getName(), changePassword);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -16,6 +16,18 @@ export default {
         }
       )
     })
+  },
+  changePassword: function ({ reject }, vo) {
+    return new Promise((resolve) => {
+      Vue.http.post('api/v1/profile/change-password', vo).then(
+        () => {
+          resolve()
+        },
+        error => {
+          reject(error)
+        }
+      )
+    })
   }
 
 }

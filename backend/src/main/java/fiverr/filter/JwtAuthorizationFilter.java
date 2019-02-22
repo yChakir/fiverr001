@@ -1,18 +1,15 @@
 package fiverr.filter;
 
 import fiverr.util.JwtUtil;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-@Order(99)
-public class JwtAuthorizationFilter extends OncePerRequestFilter {
+@Component
+public class JwtAuthorizationFilter extends HandlerInterceptorAdapter {
 
     private JwtUtil jwtUtil;
 
@@ -21,18 +18,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-        response.addHeader("Access-Control-Allow-Headers", "Origin, Authorization, Content-Type, Headers, X-Requested-With, Accept, Access-Control-Request-Methods, Access-Control-Request-Headers, Accept-Language");
-        response.addHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Authorization");
-
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader(JwtUtil.HEADER_STRING);
 
         if (token != null && token.startsWith(JwtUtil.TOKEN_PREFIX)) {
             SecurityContextHolder.getContext().setAuthentication(jwtUtil.parse(token));
         }
 
-        filterChain.doFilter(request, response);
+        return super.preHandle(request, response, handler);
     }
 }
