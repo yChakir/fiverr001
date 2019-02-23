@@ -29,7 +29,7 @@
           <v-list-tile-action>
             <v-icon>{{ link.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title v-text="link.text"/>
+          <v-list-tile-title v-text="$t(link.text)"/>
         </v-list-tile>
       </v-layout>
     </v-img>
@@ -60,32 +60,33 @@ export default {
       return this.$t("Layout.View.items");
     },
     links() {
+      const prefix = "Core.Drower";
       const result = [
         {
           to: "/",
           icon: "mdi-account",
-          text: "Home"
+          text: `${prefix}.home`
         },
         {
           to: "/user-profile",
           icon: "mdi-account",
-          text: "User Profile",
+          text: `${prefix}.user-profile`,
           requireAuth: true
         },
         {
           to: "/faq",
           icon: "mdi-clipboard-outline",
-          text: "FAQ"
+          text: `${prefix}.faq`
         },
         {
           to: "/contact",
           icon: "mdi-format-font",
-          text: "Contact"
+          text: `${prefix}.contact`
         },
         {
           to: "/logout",
           icon: "mdi-format-font",
-          text: "Logout",
+          text: `${prefix}.logout`,
           requireAuth: true
         }
       ];

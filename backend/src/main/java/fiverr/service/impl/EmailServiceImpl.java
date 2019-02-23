@@ -4,12 +4,14 @@ import fiverr.event.PasswordResetEvent;
 import fiverr.event.RegistrationEvent;
 import fiverr.service.EmailService;
 import fiverr.util.Translator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class EmailServiceImpl implements EmailService {
 
@@ -22,6 +24,7 @@ public class EmailServiceImpl implements EmailService {
     @Override
     @EventListener
     public void sendEmailValidation(RegistrationEvent event) {
+        log.debug("sendEmailValidation() :: Sending registration email for: {}", event);
         LocaleContextHolder.setLocale(event.getLocale());
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -37,11 +40,13 @@ public class EmailServiceImpl implements EmailService {
         );
 
         sender.send(message);
+        log.debug("sendEmailValidation() :: Sending registration email for: {} - End", event);
     }
 
     @Override
     @EventListener
     public void sendPasswordReset(PasswordResetEvent event) {
+        log.debug("sendPasswordReset() :: Sending reset password email for: {}", event);
         LocaleContextHolder.setLocale(event.getLocale());
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -57,5 +62,6 @@ public class EmailServiceImpl implements EmailService {
         );
 
         sender.send(message);
+        log.debug("sendPasswordReset() :: Sending reset password email for: {} - End", event);
     }
 }

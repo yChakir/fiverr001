@@ -15,6 +15,7 @@ import fiverr.vos.ChangePassword;
 import fiverr.vos.EmailValidation;
 import fiverr.vos.Registration;
 import fiverr.vos.ResetPassword;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Transactional
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -58,6 +60,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(Registration registration) {
+        log.debug("New registration: {}", registration);
         Optional<User> alreadyExit = userRepository.findByEmail(registration.getEmail());
 
         if (alreadyExit.isPresent()) {

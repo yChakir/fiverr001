@@ -1,0 +1,12 @@
+{
+    "title": "Enregistrer",
+    "subtitle": "Enregistrer un nouveau compte",
+    "signup": "Enregistrer",
+    "signup-google": "Enregistrer avec Google",
+    "signup-facebook": "Enregistrer avec Facebook",
+    "name": "Nom",
+    "surname": "Prenom",
+    "email": "Adresse Email",
+    "password": "Mot de passe",
+    "alreadyRegistered": "Vous avez déjà un compte ?"
+}

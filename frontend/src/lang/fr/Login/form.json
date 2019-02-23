@@ -1,0 +1,11 @@
+{
+    "title": "Connexion",
+    "subtitle": "Login avec votre compte",
+    "login": "Connecter",
+    "login-google": "Connecter avec Google",
+    "login-facebook": "Connecter avec Facebook",
+    "email": "Adresse Email",
+    "password": "Mot de passe",
+    "dontHaveAccount": "Vous n'avez pas encore de compte ?",
+    "forgotPassword": "Mot de passe oublier ?"
+}

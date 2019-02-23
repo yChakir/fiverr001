@@ -93,8 +93,8 @@ export default {
   data: function() {
     return {
       credentials: {
-        username: "yassine.chakir@ilemgroup.com",
-        password: "password"
+        username: "",
+        password: ""
       },
       isLoading: false,
       responsive: false,

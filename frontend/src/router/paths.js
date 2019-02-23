@@ -3,55 +3,57 @@
  * for more information on routes, see the
  * official documentation https://router.vuejs.org/en/
  */
+const prefix = "Core.Router";
+
 export default [
   {
     path: '/',
-    name: 'Home',
+    name: `${prefix}.home`,
     view: 'Home'
   },
   {
     path: '/user-profile',
-    name: 'User Profile',
+    name: `${prefix}.user-profile`,
     view: 'UserProfile'
   },
   {
     path: '/sign-up',
-    name: 'Sign up',
+    name: `${prefix}.sign-up`,
     view: 'SignUp'
   },
   {
     path: '/login',
-    name: 'Login',
+    name: `${prefix}.login`,
     view: 'Login'
   },
   {
     path: '/email-validation',
-    name: 'Email Validation',
+    name: `${prefix}.email-validation`,
     view: 'EmailValidation'
   },
   {
     path: '/forgot-password',
-    name: 'Forgot Password',
+    name: `${prefix}.forgot-password`,
     view: 'ForgotPassword'
   },
   {
     path: '/reset-password',
-    name: 'Reset Password',
+    name: `${prefix}.reset-password`,
     view: 'ResetPassword'
   },
   {
     path: '/logout',
-    name: 'logout',
+    name: `${prefix}.logout`,
     view: 'Logout'
   },
   {
     path: '/faq',
-    name: 'FAQ',
+    name: `${prefix}.faq`,
     view: 'FAQ'
   },
   {
     path: '/contact',
-    name: 'Contact',
+    name: `${prefix}.contact`,
     view: 'Contact'
   }
 ]

@@ -1,0 +1,9 @@
+{
+    "title": "Renitialiser le mot de passe",
+    "subtitle": "Renitialise le mot de passe (Veuillez consulter votre boite de reception pour le token).",
+    "validate": "Valider",
+    "email": "Adresse Email",
+    "token": "Token",
+    "password": "Nouveau mot de passe",
+    "confirmation": "Confirmation"
+}

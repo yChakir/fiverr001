@@ -3,16 +3,36 @@
     <v-container py-0>
       <v-layout wrap>
         <v-flex xs12>
-          <v-text-field v-model="vo.currentPassword" :label="current" type="password" class="green-input"/>
+          <v-text-field
+            v-model="vo.currentPassword"
+            :label="current"
+            type="password"
+            class="green-input"
+          />
         </v-flex>
         <v-flex xs12>
-          <v-text-field v-model="vo.newPassword" :label="newPassword" type="password" class="green-input"/>
+          <v-text-field
+            v-model="vo.newPassword"
+            :label="newPassword"
+            type="password"
+            class="green-input"
+          />
         </v-flex>
         <v-flex xs12>
-          <v-text-field v-model="vo.confirmation" :label="confirmation" type="password" class="green-input"/>
+          <v-text-field
+            v-model="vo.confirmation"
+            :label="confirmation"
+            type="password"
+            class="green-input"
+          />
         </v-flex>
         <v-flex xs12 text-xs-right>
-          <v-btn class="mx-0 font-weight-light" @click="submitForm" :loading="loading" color="success">{{submit}}</v-btn>
+          <v-btn
+            class="mx-0 font-weight-light"
+            @click="submitForm"
+            :loading="loading"
+            color="success"
+          >{{submit}}</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
@@ -51,17 +71,15 @@ export default {
   methods: {
     submitForm() {
       this.loading = true;
-      const vo = {...this.vo};
-      this.error = '';
-      console.log(vo)
+      const vo = { ...this.vo };
+      this.error = "";
+
       this.$store
-        .dispatch('profile/changePassword', vo)
+        .dispatch("profile/changePassword", vo)
         .then(() => {
-          this.$router.push('user-profile')
+          this.$router.push("user-profile");
         })
-        .catch(
-          error => this.error = error
-        )
+        .catch(error => (this.error = error))
         .finally(() => (this.loading = false));
     }
   }
