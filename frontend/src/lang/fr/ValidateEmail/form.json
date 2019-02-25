@@ -3,5 +3,6 @@
     "subtitle": "Valider votre compte (Veuillez consulter votre boite de reception pour le token).",
     "validate": "Valider",
     "email": "Adresse Email",
-    "token": "Token"
+    "token": "Token",
+    "success": "Votre compte a été activer !"
 }

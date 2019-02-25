@@ -1,6 +1,7 @@
 {
     "title": "Mot de passe oublier",
-    "subtitle": "Envoi d'un email pour renitialiser le mot de passe.",
+    "subtitle": "Envoi d'un message pour renitialiser le mot de passe.",
     "send": "Envoyer",
-    "email": "Adresse Email"
+    "email": "Adresse Email",
+    "success": "Un message a été envoyer a votre boite de messagerie."
 }

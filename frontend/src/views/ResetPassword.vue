@@ -127,8 +127,6 @@ export default {
     },
     submit() {
       this.isLoading = true;
-      const vo = { ...this.vo };
-      this.error = "";
       this.$store
         .dispatch("auth/resetPassword", this.vo)
         .then(() => {
