@@ -30,7 +30,7 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
-                    v-validate="'required|min:8|max:50'"
+                    v-validate="{required: true, min: 8, max: 50, regex: /^.*(([a-zA-Z]+.*[0-9]+)|([0-9]+.*[a-zA-Z]+)).*$/}"
                     :data-vv-name="password"
                     :error-messages="errors.collect(password)"
                     v-model="vo.password"
