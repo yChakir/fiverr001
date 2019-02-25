@@ -1,0 +1,12 @@
+{
+    "home": "Acceuil",
+    "user-profile": "Profil d'utilisateur",
+    "sign-up": "Enregistrer",
+    "login": "Connexion",
+    "email-validation": "Validation d'Email",
+    "forgot-password": "Mot de passe oublier",
+    "reset-password": "Reinitialiser le mot de passe",
+    "logout": "Déconnexion",
+    "faq": "FAQ",
+    "contact": "Contact"
+}

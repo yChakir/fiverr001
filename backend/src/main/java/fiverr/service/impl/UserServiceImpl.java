@@ -54,8 +54,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(Translator.translate("exception.account.notFound")));
+
+        if (!user.isActive()) {
+            throw new ClientException(Translator.translate("exception.auth.account-not-active"));
+        }
+
+        return user;
     }
 
     @Override

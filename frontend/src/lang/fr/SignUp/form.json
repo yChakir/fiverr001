@@ -8,5 +8,6 @@
     "surname": "Prenom",
     "email": "Adresse Email",
     "password": "Mot de passe",
-    "alreadyRegistered": "Vous avez déjà un compte ?"
+    "alreadyRegistered": "Vous avez déjà un compte ?",
+    "success": "Votre a été bien crées ! Un email vous a été envoyer pour le confirmer."
 }

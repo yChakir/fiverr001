@@ -3,7 +3,7 @@
     <div class="v-toolbar-title">
       <v-toolbar-title class="tertiary--text font-weight-light">
         <v-btn v-if="true" class="default v-btn--simple" dark icon @click.stop="onClickBtn">
-          <v-icon>mdi-view-list</v-icon>
+          <fa-icon icon="bars" size="lg"/>
         </v-btn>
         {{ $t(title) }}
       </v-toolbar-title>
@@ -12,10 +12,24 @@
     <v-spacer/>
     <v-toolbar-items>
       <v-flex align-center layout py-2>
-        <router-link v-if="!authenticated" v-ripple class="toolbar-items" to="/sign-up">{{$t('Core.Toolbar.sign-up')}}</router-link>
-        <router-link v-if="!authenticated" v-ripple class="toolbar-items" to="/login">{{$t('Core.Toolbar.login')}}</router-link>
+        <router-link
+          v-if="!authenticated"
+          v-ripple
+          class="toolbar-items"
+          to="/sign-up"
+        >{{$t('Core.Toolbar.sign-up')}}</router-link>
+        <router-link
+          v-if="!authenticated"
+          v-ripple
+          class="toolbar-items"
+          to="/login"
+        >{{$t('Core.Toolbar.login')}}</router-link>
         <v-menu offset-y>
-          <v-btn slot="activator" flat><div style="color: #4caf50;">{{$i18n.locale}}</div></v-btn>
+          <router-link slot="activator" @click.prevent v-ripple to class="toolbar-items">
+            <fa-icon icon="globe" class="v-icon--left"/>
+            {{$i18n.locale.toUpperCase()}}
+          </router-link>
+
           <v-list v-for="(item) in language.accepted" :key="item.code">
             <v-list-tile @click="setLanguage(item.code)">
               <v-list-tile-title>{{item.name}}</v-list-tile-title>

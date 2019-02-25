@@ -27,7 +27,7 @@
           class="v-list-item"
         >
           <v-list-tile-action>
-            <v-icon>{{ link.icon }}</v-icon>
+            <fa-icon :icon="link.icon" size="lg"/>
           </v-list-tile-action>
           <v-list-tile-title v-text="$t(link.text)"/>
         </v-list-tile>
@@ -64,28 +64,28 @@ export default {
       const result = [
         {
           to: "/",
-          icon: "mdi-account",
+          icon: "home",
           text: `${prefix}.home`
         },
         {
           to: "/user-profile",
-          icon: "mdi-account",
+          icon: "user",
           text: `${prefix}.user-profile`,
           requireAuth: true
         },
         {
           to: "/faq",
-          icon: "mdi-clipboard-outline",
+          icon: "question",
           text: `${prefix}.faq`
         },
         {
           to: "/contact",
-          icon: "mdi-format-font",
+          icon: "address-book",
           text: `${prefix}.contact`
         },
         {
           to: "/logout",
-          icon: "mdi-format-font",
+          icon: "sign-out-alt",
           text: `${prefix}.logout`,
           requireAuth: true
         }

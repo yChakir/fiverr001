@@ -2,5 +2,6 @@
     "title": "Forgot Password",
     "subtitle": "Send an email to reset your password.",
     "send": "Send",
-    "email": "Email Address"
+    "email": "Email Address",
+    "success": "A mail has been sent to your email address."
 }

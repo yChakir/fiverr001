@@ -1,5 +1,5 @@
 <template>
-  <material-card color="green" :title="title" :text="subtitle">
+  <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submitForm">
     <v-container py-0>
       <v-layout wrap>
         <v-flex xs12>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -66,20 +68,22 @@ export default {
     },
     submit() {
       return this.$t(`${this.prefix}.submit`);
+    },
+    success() {
+      return this.$t(`${this.prefix}.success`);
     }
   },
   methods: {
+    ...mapMutations("snack", ["showSuccess", "showError"]),
     submitForm() {
       this.loading = true;
-      const vo = { ...this.vo };
-      this.error = "";
-
       this.$store
-        .dispatch("profile/changePassword", vo)
+        .dispatch("profile/changePassword", this.vo)
         .then(() => {
+          this.showSuccess(this.success);
           this.$router.push("user-profile");
         })
-        .catch(error => (this.error = error))
+        .catch(error => this.showError(error.message))
         .finally(() => (this.loading = false));
     }
   }

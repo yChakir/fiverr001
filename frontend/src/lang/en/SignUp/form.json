@@ -8,5 +8,6 @@
     "surname": "Surname",
     "email": "Email Address",
     "password": "Password",
-    "alreadyRegistered": "Already have an account ?"
+    "alreadyRegistered": "Already have an account ?",
+    "success": "Your account has been successfully created ! An email has been sent to you to activate it."
 }

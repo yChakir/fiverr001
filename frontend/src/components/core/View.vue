@@ -1,6 +1,8 @@
 <template>
   <v-content>
     <div id="core-view">
+      <core-snackbar/>
+
       <v-fade-transition mode="out-in">
         <router-view />
       </v-fade-transition>
@@ -10,11 +12,16 @@
 </template>
 
 <script>
+import Snackbar from "@/components/core/Snackbar";
+
 export default {
   metaInfo () {
     return {
-      title: 'Vuetify Material Dashboard by CreativeTim'
+      title: 'PORTAL.NAME'
     }
+  },
+  components: {
+    "core-snackbar": Snackbar
   }
 }
 </script>

@@ -11,20 +11,21 @@ export default {
           commit('setProfile', profile)
           resolve(profile)
         },
-        error => {
-          reject(error)
+        response => {
+          reject(response.body)
         }
       )
     })
   },
-  changePassword: function ({ reject }, vo) {
-    return new Promise((resolve) => {
+  changePassword: function ({ commit }, vo) {
+    return new Promise((resolve, reject) => {
       Vue.http.post('api/v1/profile/change-password', vo).then(
         () => {
           resolve()
+          commit()
         },
-        error => {
-          reject(error)
+        response => {
+          reject(response.body)
         }
       )
     })
