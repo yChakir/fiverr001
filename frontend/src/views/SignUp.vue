@@ -22,7 +22,7 @@
                     <v-flex xs12 md6>
                       <v-text-field
                         v-validate="'required|min:2|max:50'"
-                        :data-vv-name="surmane"
+                        :data-vv-name="surname"
                         :error-messages="errors.collect(surname)"
                         v-model="vo.surname"
                         :label="surname"
