@@ -3,13 +3,16 @@
     <v-layout justify-center wrap>
       <v-flex xs12 md8>
         <material-card @keyup.enter="submit" color="green" :title="title" :text="subtitle">
-          <v-form>
+          <v-form lazy-validation>
             <v-container py-0>
               <v-layout wrap>
                 <v-flex xs12 md7>
                   <v-layout wrap>
                     <v-flex xs12>
                       <v-text-field
+                        v-validate="'required|email|min:3|max:100'"
+                        data-vv-name="email"
+                        :error-messages="errors.collect('email')"
                         v-model="credentials.username"
                         :label="email"
                         class="green-input"
@@ -17,6 +20,9 @@
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field
+                        v-validate="'required|min:8|max:50'"
+                        data-vv-name="password"
+                        :error-messages="errors.collect('password')"
                         v-model="credentials.password"
                         type="password"
                         :label="password"
@@ -126,16 +132,20 @@ export default {
       }
     },
     submit() {
-      this.isLoading = true;
-      this.$store
-        .dispatch("auth/login", this.credentials)
-        .then(() => {
-          this.$router.push("user-profile");
-        })
-        .catch(error => {
-          this.showError(error.message);
-        })
-        .finally(() => (this.isLoading = false));
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.isLoading = true;
+          this.$store
+            .dispatch("auth/login", this.credentials)
+            .then(() => {
+              this.$router.push("user-profile");
+            })
+            .catch(error => {
+              this.showError(error.message);
+            })
+            .finally(() => (this.isLoading = false));
+        }
+      });
     }
   }
 };

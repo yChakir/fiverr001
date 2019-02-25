@@ -8,6 +8,9 @@
               <v-layout wrap>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|email|min:3|max:100'"
+                    data-vv-name="email"
+                    :error-messages="errors.collect('email')"
                     v-model="vo.email"
                     :label="email"
                     :disabled="disabled.email"
@@ -16,6 +19,9 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|min:30|max:50'"
+                    data-vv-name="token"
+                    :error-messages="errors.collect('token')"
                     v-model="vo.token"
                     :disabled="disabled.token"
                     :label="token"
@@ -107,17 +113,21 @@ export default {
       }
     },
     submit() {
-      this.isLoading = true;
-      this.$store
-        .dispatch("auth/validateEmail", this.vo)
-        .then(() => {
-          this.showSuccess(this.success);
-          this.$router.push("login");
-        })
-        .catch(error => {
-          this.showError(error.message);
-        })
-        .finally(() => (this.isLoading = false));
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.isLoading = true;
+          this.$store
+            .dispatch("auth/validateEmail", this.vo)
+            .then(() => {
+              this.showSuccess(this.success);
+              this.$router.push("login");
+            })
+            .catch(error => {
+              this.showError(error.message);
+            })
+            .finally(() => (this.isLoading = false));
+        }
+      });
     }
   }
 };

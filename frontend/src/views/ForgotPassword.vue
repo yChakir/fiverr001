@@ -7,7 +7,14 @@
             <v-container py-0>
               <v-layout wrap>
                 <v-flex xs12>
-                  <v-text-field v-model="vo.email" :label="email" class="green-input"/>
+                  <v-text-field
+                    v-validate="'required|email|min:3|max:100'"
+                    data-vv-name="email"
+                    :error-messages="errors.collect('email')"
+                    v-model="vo.email"
+                    :label="email"
+                    class="green-input"
+                  />
                 </v-flex>
                 <v-flex xs12 text-xs-right>
                   <v-btn
@@ -73,15 +80,19 @@ export default {
       }
     },
     submit() {
-      this.isLoading = true;
-      this.$store
-        .dispatch("auth/forgotPassword", this.vo)
-        .then(() => {
-          this.showSuccess(this.success);
-          this.$router.push(`reset-password?email=${this.vo.email}`);
-        })
-        .catch(error => this.showError(error.message))
-        .finally(() => (this.isLoading = false));
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.isLoading = true;
+          this.$store
+            .dispatch("auth/forgotPassword", this.vo)
+            .then(() => {
+              this.showSuccess(this.success);
+              this.$router.push(`reset-password?email=${this.vo.email}`);
+            })
+            .catch(error => this.showError(error.message))
+            .finally(() => (this.isLoading = false));
+        }
+      });
     }
   }
 };

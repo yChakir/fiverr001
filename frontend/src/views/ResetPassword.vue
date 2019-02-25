@@ -8,6 +8,9 @@
               <v-layout wrap>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|email|min:3|max:100'"
+                    data-vv-name="email"
+                    :error-messages="errors.collect('email')"
                     v-model="vo.email"
                     :label="email"
                     :disabled="disabled.email"
@@ -16,6 +19,9 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|min:30|max:50'"
+                    data-vv-name="token"
+                    :error-messages="errors.collect('token')"
                     v-model="vo.token"
                     :disabled="disabled.token"
                     :label="token"
@@ -24,6 +30,9 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|min:8|max:50'"
+                    data-vv-name="password"
+                    :error-messages="errors.collect('password')"
                     v-model="vo.password"
                     type="password"
                     :label="password"
@@ -32,6 +41,9 @@
                 </v-flex>
                 <v-flex xs12>
                   <v-text-field
+                    v-validate="'required|confirmed:password'"
+                    data-vv-name="password confirmation"
+                    :error-messages="errors.collect('password confirmation')"
                     v-model="vo.confirmation"
                     type="password"
                     :label="confirmation"
@@ -126,15 +138,19 @@ export default {
       }
     },
     submit() {
-      this.isLoading = true;
-      this.$store
-        .dispatch("auth/resetPassword", this.vo)
-        .then(() => {
-          this.showSuccess(this.success);
-          this.$router.push("login");
-        })
-        .catch(error => this.showError(error.message))
-        .finally(() => (this.isLoading = false));
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.isLoading = true;
+          this.$store
+            .dispatch("auth/resetPassword", this.vo)
+            .then(() => {
+              this.showSuccess(this.success);
+              this.$router.push("login");
+            })
+            .catch(error => this.showError(error.message))
+            .finally(() => (this.isLoading = false));
+        }
+      });
     }
   }
 };

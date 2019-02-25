@@ -9,16 +9,41 @@
                 <v-flex xs12 md7>
                   <v-layout wrap>
                     <v-flex xs12 md6>
-                      <v-text-field autofocus v-model="vo.name" :label="name" class="green-input"/>
+                      <v-text-field
+                        autofocus
+                        v-validate="'required|min:2|max:50'"
+                        data-vv-name="name"
+                        :error-messages="errors.collect('name')"
+                        v-model="vo.name"
+                        :label="name"
+                        class="green-input"
+                      />
                     </v-flex>
                     <v-flex xs12 md6>
-                      <v-text-field v-model="vo.surname" :label="surname" class="green-input"/>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field v-model="vo.email" :label="email" class="green-input"/>
+                      <v-text-field
+                        v-validate="'required|min:2|max:50'"
+                        data-vv-name="surmane"
+                        :error-messages="errors.collect('surmane')"
+                        v-model="vo.surname"
+                        :label="surname"
+                        class="green-input"
+                      />
                     </v-flex>
                     <v-flex xs12>
                       <v-text-field
+                        v-validate="'required|email|min:3|max:100'"
+                        data-vv-name="email"
+                        :error-messages="errors.collect('email')"
+                        v-model="vo.email"
+                        :label="email"
+                        class="green-input"
+                      />
+                    </v-flex>
+                    <v-flex xs12>
+                      <v-text-field
+                        v-validate="'required|min:8|max:50'"
+                        data-vv-name="password"
+                        :error-messages="errors.collect('password')"
                         v-model="vo.password"
                         type="password"
                         :label="password"
@@ -129,17 +154,21 @@ export default {
       }
     },
     submit() {
-      this.isLoading = true;
-      this.$store
-        .dispatch("auth/register", this.vo)
-        .then(() => {
-          this.showSuccess(this.success);
-          this.$router.push(`email-validation?email=${this.vo.email}`);
-        })
-        .catch(error => {
-          this.showError(error.message);
-        })
-        .finally(() => (this.isLoading = false));
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.isLoading = true;
+          this.$store
+            .dispatch("auth/register", this.vo)
+            .then(() => {
+              this.showSuccess(this.success);
+              this.$router.push(`email-validation?email=${this.vo.email}`);
+            })
+            .catch(error => {
+              this.showError(error.message);
+            })
+            .finally(() => (this.isLoading = false));
+        }
+      });
     }
   }
 };
