@@ -9,8 +9,8 @@
                 <v-flex xs12>
                   <v-text-field
                     v-validate="'required|email|min:3|max:100'"
-                    data-vv-name="email"
-                    :error-messages="errors.collect('email')"
+                    :data-vv-name="email"
+                    :error-messages="errors.collect(email)"
                     v-model="vo.email"
                     :label="email"
                     :disabled="disabled.email"
@@ -20,8 +20,8 @@
                 <v-flex xs12>
                   <v-text-field
                     v-validate="'required|min:30|max:50'"
-                    data-vv-name="token"
-                    :error-messages="errors.collect('token')"
+                    :data-vv-name="token"
+                    :error-messages="errors.collect(token)"
                     v-model="vo.token"
                     :disabled="disabled.token"
                     :label="token"
@@ -31,8 +31,8 @@
                 <v-flex xs12>
                   <v-text-field
                     v-validate="'required|min:8|max:50'"
-                    data-vv-name="password"
-                    :error-messages="errors.collect('password')"
+                    :data-vv-name="password"
+                    :error-messages="errors.collect(password)"
                     v-model="vo.password"
                     type="password"
                     :label="password"
@@ -42,8 +42,8 @@
                 <v-flex xs12>
                   <v-text-field
                     v-validate="'required|confirmed:password'"
-                    data-vv-name="password confirmation"
-                    :error-messages="errors.collect('password confirmation')"
+                    :data-vv-name="confirmation"
+                    :error-messages="errors.collect(confirmation)"
                     v-model="vo.confirmation"
                     type="password"
                     :label="confirmation"

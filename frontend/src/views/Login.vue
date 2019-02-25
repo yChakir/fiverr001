@@ -11,8 +11,8 @@
                     <v-flex xs12>
                       <v-text-field
                         v-validate="'required|email|min:3|max:100'"
-                        data-vv-name="email"
-                        :error-messages="errors.collect('email')"
+                        :data-vv-name="email"
+                        :error-messages="errors.collect(email)"
                         v-model="credentials.username"
                         :label="email"
                         class="green-input"
@@ -21,8 +21,8 @@
                     <v-flex xs12>
                       <v-text-field
                         v-validate="'required|min:8|max:50'"
-                        data-vv-name="password"
-                        :error-messages="errors.collect('password')"
+                        :data-vv-name="password"
+                        :error-messages="errors.collect(password)"
                         v-model="credentials.password"
                         type="password"
                         :label="password"

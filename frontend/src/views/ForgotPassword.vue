@@ -9,8 +9,8 @@
                 <v-flex xs12>
                   <v-text-field
                     v-validate="'required|email|min:3|max:100'"
-                    data-vv-name="email"
-                    :error-messages="errors.collect('email')"
+                    :data-vv-name="email"
+                    :error-messages="errors.collect(email)"
                     v-model="vo.email"
                     :label="email"
                     class="green-input"

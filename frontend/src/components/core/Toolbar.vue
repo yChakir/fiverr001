@@ -87,6 +87,7 @@ export default {
     },
     setLanguage(code) {
       this.$store.commit("lang/setLanguage", code);
+      location.reload();
     }
   }
 };

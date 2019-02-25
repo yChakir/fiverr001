@@ -12,8 +12,8 @@
                       <v-text-field
                         autofocus
                         v-validate="'required|min:2|max:50'"
-                        data-vv-name="name"
-                        :error-messages="errors.collect('name')"
+                        :data-vv-name="name"
+                        :error-messages="errors.collect(name)"
                         v-model="vo.name"
                         :label="name"
                         class="green-input"
@@ -22,8 +22,8 @@
                     <v-flex xs12 md6>
                       <v-text-field
                         v-validate="'required|min:2|max:50'"
-                        data-vv-name="surmane"
-                        :error-messages="errors.collect('surmane')"
+                        :data-vv-name="surmane"
+                        :error-messages="errors.collect(surname)"
                         v-model="vo.surname"
                         :label="surname"
                         class="green-input"
@@ -32,8 +32,8 @@
                     <v-flex xs12>
                       <v-text-field
                         v-validate="'required|email|min:3|max:100'"
-                        data-vv-name="email"
-                        :error-messages="errors.collect('email')"
+                        :data-vv-name="email"
+                        :error-messages="errors.collect(email)"
                         v-model="vo.email"
                         :label="email"
                         class="green-input"
@@ -42,8 +42,8 @@
                     <v-flex xs12>
                       <v-text-field
                         v-validate="'required|min:8|max:50'"
-                        data-vv-name="password"
-                        :error-messages="errors.collect('password')"
+                        :data-vv-name="password"
+                        :error-messages="errors.collect(password)"
                         v-model="vo.password"
                         type="password"
                         :label="password"
