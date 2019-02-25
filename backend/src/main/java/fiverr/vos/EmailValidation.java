@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
@@ -13,8 +14,11 @@ import javax.validation.constraints.Size;
 public class EmailValidation {
 
     @Email
+    @NotBlank
+    @Size(min = 3, max = 100)
     private String email;
 
-    @Size(min = 30, max = 40)
+    @NotBlank
+    @Size(min = 30, max = 50)
     private String token;
 }

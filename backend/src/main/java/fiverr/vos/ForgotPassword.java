@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +14,7 @@ import javax.validation.constraints.Email;
 public class ForgotPassword {
 
     @Email
+    @NotBlank
+    @Size(min = 3, max = 100)
     private String email;
 }
