@@ -7,7 +7,6 @@ import fiverr.event.RegistrationEvent;
 import fiverr.exception.ClientException;
 import fiverr.pojo.TokenType;
 import fiverr.repository.UserRepository;
-import fiverr.service.EmailService;
 import fiverr.service.TokenService;
 import fiverr.service.UserService;
 import fiverr.util.Translator;
@@ -41,14 +40,11 @@ public class UserServiceImpl implements UserService {
 
     private final ApplicationEventPublisher publisher;
 
-    private final EmailService emailService;
-
-    public UserServiceImpl(UserRepository userRepository, TokenService tokenService, PasswordEncoder encoder, ApplicationEventPublisher publisher, EmailService emailService) {
+    public UserServiceImpl(UserRepository userRepository, TokenService tokenService, PasswordEncoder encoder, ApplicationEventPublisher publisher) {
         this.userRepository = userRepository;
         this.tokenService = tokenService;
         this.encoder = encoder;
         this.publisher = publisher;
-        this.emailService = emailService;
     }
 
     @Override
@@ -127,7 +123,7 @@ public class UserServiceImpl implements UserService {
                     .findAny();
 
             Token token;
-            if(optionalToken.isPresent()) {
+            if (optionalToken.isPresent()) {
                 token = optionalToken.get();
                 token.setExpireDate(LocalDateTime.now().plusDays(1));
             } else {

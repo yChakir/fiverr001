@@ -1,0 +1,29 @@
+package fiverr.controller;
+
+import fiverr.service.ContactService;
+import fiverr.vos.ContactRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("api/v1/contact")
+public class ContactController {
+
+    private final ContactService service;
+
+    public ContactController(ContactService service) {
+        this.service = service;
+    }
+
+    @PostMapping
+    public ResponseEntity contact(@RequestBody @Valid ContactRequest contactRequest) {
+        service.contact(contactRequest);
+
+        return ResponseEntity.created(null).build();
+    }
+}

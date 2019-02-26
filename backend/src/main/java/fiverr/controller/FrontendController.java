@@ -1,12 +1,12 @@
 package fiverr.controller;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+//@Controller
+//@RequestMapping("/*")
 public class FrontendController {
-    @GetMapping("vue")
+    @GetMapping
     public String vue() {
-        return "forward:vue/index.html";
+        return "forward:index.html";
     }
 }

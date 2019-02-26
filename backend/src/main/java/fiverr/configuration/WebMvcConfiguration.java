@@ -1,5 +1,6 @@
 package fiverr.configuration;
 
+import fiverr.converter.ContactRequestToContact;
 import fiverr.converter.UserToProfileConverter;
 import fiverr.filter.JwtAuthorizationFilter;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +20,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new UserToProfileConverter());
+        registry.addConverter(new ContactRequestToContact());
     }
 
     @Override
