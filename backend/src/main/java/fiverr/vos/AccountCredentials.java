@@ -20,4 +20,12 @@ public class AccountCredentials implements Serializable {
     @NotBlank
     @Size(min = 8, max = 50)
     private String password;
+
+    @Override
+    public String toString() {
+        return "AccountCredentials{" +
+                "username='" + username + '\'' +
+                ", password='[PROTECTED]'" +
+                '}';
+    }
 }
