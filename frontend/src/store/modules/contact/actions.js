@@ -8,6 +8,7 @@ export default {
       Vue.http.post('api/v1/contact', vo).then(
         () => {
           resolve()
+          commit()
         },
         response => {
           reject(response.body)

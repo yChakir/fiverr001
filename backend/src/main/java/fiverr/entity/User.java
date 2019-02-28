@@ -100,7 +100,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 ", avatar='" + avatar + '\'' +
                 ", phone='" + phone + '\'' +
                 ", active=" + active +
-                ", tokens=" + tokens +
+                ", tokens='[EXCLUDED]'" +
                 '}';
     }
 }
