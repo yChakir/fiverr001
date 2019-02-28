@@ -3,6 +3,7 @@ package fiverr.controller;
 import fiverr.entity.User;
 import fiverr.service.UserService;
 import fiverr.vos.ChangePassword;
+import fiverr.vos.EditProfile;
 import fiverr.vos.Profile;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +45,16 @@ public class ProfileController {
         userService.changePassword(principal.getName(), changePassword);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("edit-profile")
+    public ResponseEntity editProfile(
+            @RequestBody @Valid EditProfile profile, Principal principal
+    ) {
+        User user = userService.editProfile(principal.getName(), profile);
+
+        Profile result = conversionService.convert(user, Profile.class);
+
+        return ResponseEntity.ok(result);
     }
 }

@@ -10,10 +10,7 @@ import fiverr.repository.UserRepository;
 import fiverr.service.TokenService;
 import fiverr.service.UserService;
 import fiverr.util.Translator;
-import fiverr.vos.ChangePassword;
-import fiverr.vos.EmailValidation;
-import fiverr.vos.Registration;
-import fiverr.vos.ResetPassword;
+import fiverr.vos.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -221,6 +218,18 @@ public class UserServiceImpl implements UserService {
         log.debug("changePassword() :: all test passed, changing the password.");
         user.setPassword(encoder.encode(changePassword.getNewPassword()));
 
-        userRepository.save(user);
+        repository.save(user);
+    }
+
+    @Override
+    public User editProfile(String email, EditProfile editProfile) {
+        log.debug("editProfile() :: email = {}, editProfile = {}", email, editProfile);
+        User user = findByEmail(email);
+
+        user.setName(editProfile.getName());
+        user.setSurname(editProfile.getSurname());
+        user.setPhone(editProfile.getPhone());
+
+        return repository.save(user);
     }
 }

@@ -50,7 +50,7 @@
                 <v-flex xs12 md4>
                   <v-layout wrap>
                     <v-flex xs12>
-                      <v-btn class="mx-0 font-weight-light" color="danger" block>
+                      <v-btn @click="googleLogin()" class="mx-0 font-weight-light" color="danger" block>
                         <fa-icon :icon="['fab', 'google']" size="lg" class="v-icon--left"/>
                         {{loginGoogle}}
                       </v-btn>
@@ -146,6 +146,9 @@ export default {
             .finally(() => (this.isLoading = false));
         }
       });
+    },
+    googleLogin() {
+      window.location = `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.profile+https://www.googleapis.com/auth/userinfo.email&include_granted_scopes=true&state=state_parameter_passthrough_value&redirect_uri=http://fiverr001.com:8080&response_type=token&client_id=420188269949-ncukksnudmcnb2176eaeo245hinvgc9r.apps.googleusercontent.com`;
     }
   }
 };

@@ -1,6 +1,7 @@
 
 export default {
-  setProfile (state, profile) {
-    state = {...profile}
+  setProfile: function (state, profile) {
+    console.log(profile)
+    state.profile = {...profile}
   }
 }

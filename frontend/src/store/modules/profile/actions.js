@@ -9,7 +9,7 @@ export default {
         response => {
           const profile = response.body
           commit('setProfile', profile)
-          resolve(profile)
+          resolve()
         },
         response => {
           reject(response.body)
@@ -23,6 +23,19 @@ export default {
         () => {
           resolve()
           commit()
+        },
+        response => {
+          reject(response.body)
+        }
+      )
+    })
+  },
+  editProfile: function ({ commit }, vo) {
+    return new Promise((resolve, reject) => {
+      Vue.http.post('api/v1/profile/edit-profile', vo).then(
+        response => {
+          commit('setProfile', response.body)
+          resolve()
         },
         response => {
           reject(response.body)

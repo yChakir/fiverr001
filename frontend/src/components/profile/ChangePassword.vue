@@ -1,41 +1,43 @@
 <template>
   <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submitForm">
-    <v-container py-0>
-      <v-layout wrap>
-        <v-flex xs12>
-          <v-text-field
-            v-model="vo.currentPassword"
-            :label="current"
-            type="password"
-            class="green-input"
-          />
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            v-model="vo.newPassword"
-            :label="newPassword"
-            type="password"
-            class="green-input"
-          />
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field
-            v-model="vo.confirmation"
-            :label="confirmation"
-            type="password"
-            class="green-input"
-          />
-        </v-flex>
-        <v-flex xs12 text-xs-right>
-          <v-btn
-            class="mx-0 font-weight-light"
-            @click="submitForm"
-            :loading="loading"
-            color="success"
-          >{{submit}}</v-btn>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-form>
+      <v-container py-0>
+        <v-layout wrap>
+          <v-flex xs12>
+            <v-text-field
+              v-model="vo.currentPassword"
+              :label="current"
+              type="password"
+              class="green-input"
+            />
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              v-model="vo.newPassword"
+              :label="newPassword"
+              type="password"
+              class="green-input"
+            />
+          </v-flex>
+          <v-flex xs12>
+            <v-text-field
+              v-model="vo.confirmation"
+              :label="confirmation"
+              type="password"
+              class="green-input"
+            />
+          </v-flex>
+          <v-flex xs12 text-xs-right>
+            <v-btn
+              class="mx-0 font-weight-light"
+              @click="submitForm"
+              :loading="loading"
+              color="success"
+            >{{submit}}</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-form>
   </material-card>
 </template>
 

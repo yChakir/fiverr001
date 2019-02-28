@@ -25,21 +25,20 @@
 
 <script>
 import { API_ENDPOINT } from "@/config";
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
-      profile: { avatar: "default" },
       prefix: "Profile.card",
       apiEndpint: API_ENDPOINT
     };
   },
   created() {
-    this.$store
-      .dispatch("profile/fetchProfile")
-      .then(response => (this.profile = { ...response }));
+    this.$store.dispatch("profile/fetchProfile");
   },
   computed: {
+    ...mapState("profile", ["profile"]),
     email() {
       return this.$t(`${this.prefix}.email`);
     },

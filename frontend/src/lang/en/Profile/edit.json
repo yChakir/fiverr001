@@ -1,0 +1,9 @@
+{
+    "title": "Edit Profile",
+    "subtitle": "Change your profile informations",
+    "name": "Name",
+    "surname": "Surname",
+    "phone": "Phone",
+    "edit": "Edit",
+    "success": "Your profile have been edited successfully !"
+}
