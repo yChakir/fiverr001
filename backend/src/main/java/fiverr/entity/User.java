@@ -34,33 +34,22 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @Column(name = "user_id")
     private Long id;
 
-    @NotBlank
-    @Size(min = 2, max = 30)
     @Column(name = "user_name", nullable = false)
     private String name;
 
-    @NotBlank
-    @Size(min = 2, max = 30)
     @Column(name = "user_surname", nullable = false)
     private String surname;
 
-    @Email
-    @NotBlank
-    @Size(min = 2, max = 100)
     @Column(name = "user_email", unique = true, nullable = false)
     private String email;
 
-    @Size(min = 6)
-    @NotBlank
     @Column(name = "user_password", nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Size(max = 30)
     @Column(name = "user_avatar")
     private String avatar = "default";
 
-    @Size(max = 20)
     @Column(name = "user_phone")
     private String phone;
 

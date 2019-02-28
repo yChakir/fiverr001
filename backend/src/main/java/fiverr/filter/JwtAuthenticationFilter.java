@@ -8,6 +8,7 @@ import fiverr.exception.ServiceException;
 import fiverr.util.JwtUtil;
 import fiverr.util.Translator;
 import fiverr.vos.AccountCredentials;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
@@ -34,28 +36,36 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+        log.debug("attemptAuthentication() :: authentication attempt.");
         AccountCredentials user;
 
         try {
             user = new ObjectMapper().readValue(request.getInputStream(), AccountCredentials.class);
+            log.debug("attemptAuthentication() :: credentials = {}", user);
 
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     user.getUsername(),
                     user.getPassword()
             ));
+
+            log.debug("attemptAuthentication() :: authentication succeeded = {}", user);
+
+            return authentication;
         } catch (BadCredentialsException e) {
+            log.debug("attemptAuthentication() :: authentication failed, message = ", e.getMessage());
             response.setContentType("application/json;charset=UTF-8");
             ClientException exception = new ClientException(Translator.translate("exception.auth.bad-credentials"));
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writeQuietly(response, exception);
         } catch (InternalAuthenticationServiceException e) {
+            log.debug("attemptAuthentication() :: authentication failed, message = ", e.getMessage());
             if (e.getMessage().equals(Translator.translate("exception.auth.account-not-active"))) {
                 response.setContentType("application/json;charset=UTF-8");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 writeQuietly(response, new ClientException(e.getMessage()));
             }
-            System.out.println("");
         } catch (IOException e) {
+            log.debug("attemptAuthentication() :: authentication failed, message = ", e.getMessage());
             response.setContentType("application/json;charset=UTF-8");
             ServiceException exception = new ServiceException(Translator.translate("exception.internal-error"));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -68,9 +78,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
         User user = (User) authResult.getPrincipal();
+        log.debug("successfulAuthentication() :: user = {}", user.getEmail());
 
         String token = jwtUtil.getToken(user);
 
+        log.debug("successfulAuthentication() :: adding access token to headers, user = {}, token = {}", user.getEmail(), token);
         response.addHeader(JwtUtil.HEADER_STRING, JwtUtil.TOKEN_PREFIX + " " + token);
     }
 

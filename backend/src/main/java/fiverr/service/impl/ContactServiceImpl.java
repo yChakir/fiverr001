@@ -5,11 +5,13 @@ import fiverr.event.ContactEvent;
 import fiverr.repository.ContactRepository;
 import fiverr.service.ContactService;
 import fiverr.vos.ContactRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class ContactServiceImpl implements ContactService {
 
@@ -27,6 +29,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact contact(ContactRequest contactRequest) {
+        log.debug("contact() :: new contact request: {}", contactRequest);
         Contact toSave = conversionService.convert(contactRequest, Contact.class);
         toSave = repository.save(toSave);
 
