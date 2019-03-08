@@ -1,17 +1,18 @@
 package fiverr.util;
 
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
+
 import fiverr.entity.User;
 import fiverr.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Slf4j
 @Component
@@ -32,8 +33,7 @@ public class JwtUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET)
                 .claim("name", user.getName())
-                .claim("surname", user.getSurname())
-                .claim("avatar", user.getAvatar())
+                .claim("surname", user.getSurname()).claim("avatar", user.getAvatar().getId())
                 .compact();
 
         log.debug("getToken() :: user = {}, token = {}", user, token);

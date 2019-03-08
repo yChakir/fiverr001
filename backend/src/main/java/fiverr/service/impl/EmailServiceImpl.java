@@ -1,5 +1,14 @@
 package fiverr.service.impl;
 
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.event.EventListener;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
 import fiverr.entity.Email;
 import fiverr.event.ContactEvent;
 import fiverr.event.PasswordResetEvent;
@@ -9,14 +18,6 @@ import fiverr.repository.EmailRepository;
 import fiverr.service.EmailService;
 import fiverr.util.Translator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.event.EventListener;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Slf4j
 @Service
@@ -118,7 +119,7 @@ public class EmailServiceImpl implements EmailService {
             log.debug("sendAndSave() :: Sending email = {}", email);
             sender.send(message);
         } catch (Exception e) {
-            log.debug("sendAndSave() :: error while sending email = {}, message = {}", email, e.getMessage());
+            log.error("sendAndSave() :: error while sending email = {}, message = {}", email, e.getMessage());
             email.setSent(false);
         } finally {
             emailRepository.save(email);

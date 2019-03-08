@@ -1,12 +1,12 @@
 <template>
   <v-toolbar app id="core-toolbar" prominent style="background: #eee;">
     <div class="v-toolbar-title">
-      <v-toolbar-title class="tertiary--text font-weight-light">
-        <v-btn v-if="true" class="default v-btn--simple" dark icon @click.stop="onClickBtn">
-          <fa-icon icon="bars" size="lg"/>
-        </v-btn>
-        {{ $t(title) }}
-      </v-toolbar-title>
+      <v-list-tile avatar>
+        <v-list-tile-avatar color="white">
+          <v-img :src="logo" height="34" contain/>
+        </v-list-tile-avatar>
+        <v-list-tile-title class="title">PORTAL.NAME</v-list-tile-title>
+      </v-list-tile>
     </div>
 
     <v-spacer/>
@@ -36,6 +36,11 @@
             </v-list-tile>
           </v-list>
         </v-menu>
+        <v-toolbar-title>
+          <v-btn v-if="true" class="default v-btn--simple" dark icon @click.stop="onClickBtn">
+            <fa-icon icon="bars" size="2x"/>
+          </v-btn>
+        </v-toolbar-title>
       </v-flex>
     </v-toolbar-items>
   </v-toolbar>
@@ -47,6 +52,7 @@ import { mapMutations, mapState } from "vuex";
 export default {
   data: () => ({
     title: null,
+    logo: "./img/vuetifylogo.png",
     responsive: false,
     responsiveInput: false
   }),

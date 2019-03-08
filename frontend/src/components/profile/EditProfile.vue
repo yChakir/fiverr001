@@ -3,7 +3,7 @@
     <v-form>
       <v-container py-0>
         <v-layout wrap>
-          <v-flex xs12 md4>
+          <v-flex xs12>
             <v-text-field
               v-validate="'required|min:2|max:50'"
               :data-vv-name="name"
@@ -13,7 +13,7 @@
               class="green-input"
             />
           </v-flex>
-          <v-flex xs12 md4>
+          <v-flex xs12>
             <v-text-field
               v-validate="'required|min:2|max:50'"
               :data-vv-name="surname"
@@ -23,7 +23,7 @@
               class="green-input"
             />
           </v-flex>
-          <v-flex xs12 md4>
+          <v-flex xs12>
             <v-text-field
               v-validate="'required|min:8|max:50'"
               :data-vv-name="phone"

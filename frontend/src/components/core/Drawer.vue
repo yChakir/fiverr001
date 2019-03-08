@@ -11,13 +11,6 @@
   >
     <v-img :src="image" height="100%">
       <v-layout class="fill-height" tag="v-list" column>
-        <v-list-tile avatar>
-          <v-list-tile-avatar color="white">
-            <v-img :src="logo" height="34" contain/>
-          </v-list-tile-avatar>
-          <v-list-tile-title class="title">PORTAL.NAME</v-list-tile-title>
-        </v-list-tile>
-        <v-divider horizontal></v-divider>
         <v-list-tile
           v-for="(link, i) in links"
           :key="i"
@@ -42,7 +35,6 @@ import { mapMutations, mapState } from "vuex";
 
 export default {
   data: () => ({
-    logo: "./img/vuetifylogo.png",
     responsive: false
   }),
   computed: {

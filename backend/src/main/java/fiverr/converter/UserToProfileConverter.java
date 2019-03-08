@@ -1,8 +1,9 @@
 package fiverr.converter;
 
+import org.springframework.core.convert.converter.Converter;
+
 import fiverr.entity.User;
 import fiverr.vos.Profile;
-import org.springframework.core.convert.converter.Converter;
 
 public class UserToProfileConverter implements Converter<User, Profile> {
     @Override
@@ -11,8 +12,7 @@ public class UserToProfileConverter implements Converter<User, Profile> {
                 source.getName(),
                 source.getSurname(),
                 source.getEmail(),
-                source.getPhone(),
-                source.getAvatar(),
+                source.getPhone(), source.getAvatar() == null ? 0 : source.getAvatar().getId(),
                 source.getCreated().toLocalDate()
         );
     }

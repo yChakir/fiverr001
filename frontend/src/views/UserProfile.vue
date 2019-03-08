@@ -1,17 +1,12 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
-      <v-flex xs12 md4>
-        <v-layout justify-center wrap>
-          <v-flex xs12>
-            <pf-profile-card/>
-          </v-flex>
-          <v-flex xs12>
-            <pf-change-password/>
-          </v-flex>
-        </v-layout>
+      <v-flex xs12 md5>
+        <pf-profile-card/>
+        
+        <pf-change-password/>
       </v-flex>
-      <v-flex xs12 md8>
+      <v-flex xs12 md5>
         <pf-edit-profile/>
       </v-flex>
     </v-layout>

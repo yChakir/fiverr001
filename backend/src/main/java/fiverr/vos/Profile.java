@@ -1,14 +1,15 @@
 package fiverr.vos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -33,8 +34,7 @@ public class Profile {
     private String phone;
 
     @NotBlank
-    @Size(min = 3, max = 100)
-    private String avatar;
+    private Long avatar;
 
     @NotNull
     private LocalDate createdAt;

@@ -1,44 +1,47 @@
 <template>
-  <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submitForm">
-    <v-form>
-      <v-container py-0>
-        <v-layout wrap>
-          <v-flex xs12>
-            <v-text-field
-              v-model="vo.currentPassword"
-              :label="current"
-              type="password"
-              class="green-input"
-            />
-          </v-flex>
-          <v-flex xs12>
-            <v-text-field
-              v-model="vo.newPassword"
-              :label="newPassword"
-              type="password"
-              class="green-input"
-            />
-          </v-flex>
-          <v-flex xs12>
-            <v-text-field
-              v-model="vo.confirmation"
-              :label="confirmation"
-              type="password"
-              class="green-input"
-            />
-          </v-flex>
-          <v-flex xs12 text-xs-right>
-            <v-btn
-              class="mx-0 font-weight-light"
-              @click="submitForm"
-              :loading="loading"
-              color="success"
-            >{{submit}}</v-btn>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-form>
-  </material-card>
+  <v-expansion-panel v-model="panel" expand>
+    <v-expansion-panel-content hide-actions>
+      <div slot="header">{{title}}</div>
+        <v-form>
+          <v-container py-0>
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="vo.currentPassword"
+                  :label="current"
+                  type="password"
+                  class="green-input"
+                />
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="vo.newPassword"
+                  :label="newPassword"
+                  type="password"
+                  class="green-input"
+                />
+              </v-flex>
+              <v-flex xs12>
+                <v-text-field
+                  v-model="vo.confirmation"
+                  :label="confirmation"
+                  type="password"
+                  class="green-input"
+                />
+              </v-flex>
+              <v-flex xs12 text-xs-right>
+                <v-btn
+                  class="mx-0 font-weight-light"
+                  @click="submitForm"
+                  :loading="loading"
+                  color="success"
+                >{{submit}}</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-form>
+    </v-expansion-panel-content>
+  </v-expansion-panel>
 </template>
 
 <script>
@@ -48,6 +51,7 @@ export default {
   data() {
     return {
       vo: {},
+      panel: 1,
       prefix: "Profile.password",
       loading: false
     };

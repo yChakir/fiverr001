@@ -1,8 +1,14 @@
 package fiverr.service;
 
-import fiverr.entity.User;
-import fiverr.vos.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import fiverr.entity.Image;
+import fiverr.entity.User;
+import fiverr.vos.ChangePassword;
+import fiverr.vos.EditProfile;
+import fiverr.vos.EmailValidation;
+import fiverr.vos.Registration;
+import fiverr.vos.ResetPassword;
 
 public interface UserService extends UserDetailsService {
     User register(Registration registration);
@@ -18,4 +24,6 @@ public interface UserService extends UserDetailsService {
     void changePassword(String email, ChangePassword changePassword);
 
     User editProfile(String email, EditProfile editProfile);
+
+    void setAvatar(String email, Image image);
 }

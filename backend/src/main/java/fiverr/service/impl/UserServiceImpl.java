@@ -1,5 +1,18 @@
 package fiverr.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import fiverr.entity.Image;
 import fiverr.entity.Token;
 import fiverr.entity.User;
 import fiverr.event.PasswordResetEvent;
@@ -10,19 +23,12 @@ import fiverr.repository.UserRepository;
 import fiverr.service.TokenService;
 import fiverr.service.UserService;
 import fiverr.util.Translator;
-import fiverr.vos.*;
+import fiverr.vos.ChangePassword;
+import fiverr.vos.EditProfile;
+import fiverr.vos.EmailValidation;
+import fiverr.vos.Registration;
+import fiverr.vos.ResetPassword;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Transactional
@@ -53,11 +59,13 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.debug("loadUserByUsername() :: username = {}", username);
-        User user = repository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Translator.translate("exception.account.notFound")));
+        User user = repository.findByEmail(username).orElseThrow(() -> {
+            log.warn("loadUserByUsername() :: user not found, username = {}", username);
+            return new UsernameNotFoundException(Translator.translate("exception.account.notFound"));
+        });
 
         if (!user.isActive()) {
-            log.debug("loadUserByUsername() :: the user '{}' is not active.", username);
+            log.warn("loadUserByUsername() :: the user '{}' is not active.", username);
             throw new ClientException(Translator.translate("exception.auth.account-not-active"));
         }
 
@@ -71,7 +79,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> alreadyExit = repository.findByEmail(registration.getEmail());
 
         if (alreadyExit.isPresent()) {
-            log.debug("register() :: registration already exist: {}", registration.getEmail());
+            log.warn("register() :: registration already exist: {}", registration.getEmail());
             throw new ClientException(Translator.translate("exception.account.alreadyExist"));
         }
 
@@ -100,7 +108,10 @@ public class UserServiceImpl implements UserService {
         Optional<User> optionalUser = repository.findByEmail(emailValidation.getEmail());
 
         log.debug("emailValidation() :: check user exists: {}", emailValidation.getEmail());
-        User user = optionalUser.orElseThrow(() -> new ClientException(Translator.translate("exception.token.invalidToken")));
+        User user = optionalUser.orElseThrow(() -> {
+            log.debug("emailValidation() :: check user exists: {}", emailValidation.getEmail());
+            return new ClientException(Translator.translate("exception.token.invalidToken"));
+        });
 
         Optional<Token> tokenOptional = tokenService.findByUserAndTokenAndType(user, emailValidation.getToken(), TokenType.REGISTRATION);
 
@@ -231,5 +242,16 @@ public class UserServiceImpl implements UserService {
         user.setPhone(editProfile.getPhone());
 
         return repository.save(user);
+    }
+
+    @Override
+    public void setAvatar(String email, Image image) {
+        log.debug("setAvatar() :: email = {}, name = {}", email, image.getName());
+
+        User user = findByEmail(email);
+
+        user.setAvatar(image);
+
+        repository.save(user);
     }
 }

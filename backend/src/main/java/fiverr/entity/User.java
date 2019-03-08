@@ -1,22 +1,33 @@
 package fiverr.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -47,8 +58,9 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(name = "user_avatar")
-    private String avatar = "default";
+    @NotAudited
+    @OneToOne(fetch = FetchType.EAGER)
+    private Image avatar;
 
     @Column(name = "user_phone")
     private String phone;
@@ -58,6 +70,10 @@ public class User extends BaseEntity implements Serializable, UserDetails {
     @NotAudited
     @OneToMany(targetEntity = Token.class, mappedBy = "user")
     private List<Token> tokens = new ArrayList<>();
+
+    @NotAudited
+    @OneToMany(targetEntity = Token.class, mappedBy = "user")
+    private List<Image> images = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -96,11 +112,9 @@ public class User extends BaseEntity implements Serializable, UserDetails {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
-                ", password='[PROTECTED]'" +
-                ", avatar='" + avatar + '\'' +
+                ", password='[PROTECTED]'" + ", avatar='" + (avatar == null ? 0 : avatar.getId()) + '\'' +
                 ", phone='" + phone + '\'' +
                 ", active=" + active +
-                ", tokens='[EXCLUDED]'" +
                 '}';
     }
 }
