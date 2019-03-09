@@ -10,7 +10,8 @@ import {
     faSignOutAlt,
     faCheck,
     faInfo,
-    faTimes
+    faTimes,
+    faCamera
  } from '@fortawesome/free-solid-svg-icons'
 import {
     faGoogle,
@@ -22,7 +23,7 @@ library.add(
     faGlobe, faBars,
     faHome, faQuestion, faAddressBook, faUser, faSignOutAlt,
     faGoogle, faFacebookF,
-    faInfo, faCheck, faTimes
+    faInfo, faCheck, faTimes, faCamera
 )
 
 Vue.component('fa-icon', FontAwesomeIcon)

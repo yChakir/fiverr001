@@ -1,29 +1,27 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
-      <v-flex xs12 md6>
+      <v-flex xs12 md4>
         <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submit">
           <v-form>
             <v-container py-0>
               <v-layout wrap>
-                <v-flex xs12>
+                <v-flex xs12 v-if="!disabled.email">
                   <v-text-field
                     v-validate="'required|email|min:3|max:100'"
                     :data-vv-name="email"
                     :error-messages="errors.collect(email)"
                     v-model="vo.email"
                     :label="email"
-                    :disabled="disabled.email"
                     class="green-input"
                   />
                 </v-flex>
-                <v-flex xs12>
+                <v-flex xs12 v-if="!disabled.token">
                   <v-text-field
                     v-validate="'required|min:30|max:50'"
                     :data-vv-name="token"
                     :error-messages="errors.collect(token)"
                     v-model="vo.token"
-                    :disabled="disabled.token"
                     :label="token"
                     class="green-input"
                   />

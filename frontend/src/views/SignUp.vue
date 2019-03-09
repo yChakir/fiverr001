@@ -1,12 +1,12 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
-      <v-flex xs12 md8>
+      <v-flex xs12 md5>
         <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submit">
           <v-form>
             <v-container py-0>
               <v-layout wrap>
-                <v-flex xs12 md7>
+                <v-flex xs12 md12>
                   <v-layout wrap>
                     <v-flex xs12 md6>
                       <v-text-field
@@ -64,8 +64,8 @@
                     >{{signup}}</v-btn>
                   </v-flex>
                 </v-flex>
-                <v-divider v-if="!responsive" vertical></v-divider>
-                <v-flex xs12 md4>
+                <v-divider v-if="false" vertical></v-divider>
+                <v-flex v-if="false" xs12 md4>
                   <v-layout wrap>
                     <v-flex xs12>
                       <v-btn class="mx-0 font-weight-light" color="danger" block>

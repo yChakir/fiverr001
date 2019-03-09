@@ -1,7 +1,7 @@
 <template>
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
-      <v-flex xs12 md6>
+      <v-flex xs12 md4>
         <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submit">
           <v-form>
             <v-container py-0>

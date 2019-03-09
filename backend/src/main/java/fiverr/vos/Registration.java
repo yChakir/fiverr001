@@ -1,12 +1,10 @@
 package fiverr.vos;
 
-
-import lombok.Data;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import lombok.Data;
 
 @Data
 public class Registration {
@@ -24,6 +22,6 @@ public class Registration {
 
     @NotBlank
     @Size(min = 8, max = 50)
-    @Pattern(regexp = "^.*(([a-zA-Z]+.*[0-9]+)|([0-9]+.*[a-zA-Z]+)).*$", message = "{validations.password-strength}")
+    //@Pattern(regexp = "^.*(([a-zA-Z]+.*[0-9]+)|([0-9]+.*[a-zA-Z]+)).*$", message = "{validations.password-strength}")
     private String password;
 }
