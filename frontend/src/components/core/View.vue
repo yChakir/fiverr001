@@ -4,10 +4,10 @@
       <core-snackbar/>
 
       <v-fade-transition mode="out-in">
-        <router-view />
+        <router-view/>
       </v-fade-transition>
     </div>
-    <core-footer v-if="$route.name !== 'Maps'" />
+    <core-footer/>
   </v-content>
 </template>
 
@@ -15,15 +15,15 @@
 import Snackbar from "@/components/core/Snackbar";
 
 export default {
-  metaInfo () {
+  metaInfo() {
     return {
-      title: 'PORTAL.NAME'
-    }
+      title: "PORTAL.NAME"
+    };
   },
   components: {
     "core-snackbar": Snackbar
   }
-}
+};
 </script>
 
 <style>
