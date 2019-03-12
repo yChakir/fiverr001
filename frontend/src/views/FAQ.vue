@@ -2,7 +2,7 @@
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
       <v-flex md12>
-        <material-card color="green" :title="title" :text="subtitle">
+        <material-card color="primary" :title="title" :text="subtitle">
           <v-layout justify-center wrap>
             <v-flex xs12 sm6 md4>
               <v-text-field :label="search" v-model="criteria" outline></v-text-field>

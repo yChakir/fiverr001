@@ -3,7 +3,7 @@
     <v-avatar slot="offset" class="mx-auto d-block" size="130">
       <img :src="avatar">
     </v-avatar>
-    <v-btn absolute round dark color="green" top right class="jbtn-file">
+    <v-btn absolute round dark color="primary" top right class="jbtn-file">
       <fa-icon icon="camera" size="lg"/>
       <input
         v-validate="'required|image'"

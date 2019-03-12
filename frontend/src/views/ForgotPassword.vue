@@ -2,7 +2,7 @@
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
       <v-flex xs12 md4>
-        <material-card color="green" :title="title" :text="subtitle" @keyup.enter="submit">
+        <material-card color="primary" :title="title" :text="subtitle" @keyup.enter="submit">
           <v-form>
             <v-container py-0>
               <v-layout wrap>
@@ -13,7 +13,7 @@
                     :error-messages="errors.collect(email)"
                     v-model="vo.email"
                     :label="email"
-                    class="green-input"
+                    class="primary-input"
                   />
                 </v-flex>
                 <v-flex xs12 text-xs-right>
@@ -21,7 +21,7 @@
                     @click="submit"
                     :loading="isLoading"
                     class="mx-0 font-weight-light"
-                    color="success"
+                    color="primary"
                     block
                   >{{send}}</v-btn>
                 </v-flex>

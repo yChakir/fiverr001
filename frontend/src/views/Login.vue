@@ -2,7 +2,7 @@
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
       <v-flex xs12 md5>
-        <material-card @keyup.enter="submit" color="green" :title="title" :text="subtitle">
+        <material-card @keyup.enter="submit" color="primary" :title="title" :text="subtitle">
           <v-form lazy-validation>
             <v-container py-0>
               <v-layout wrap>
@@ -15,7 +15,7 @@
                         :error-messages="errors.collect(email)"
                         v-model="credentials.username"
                         :label="email"
-                        class="green-input"
+                        class="primary-input"
                       />
                     </v-flex>
                     <v-flex xs12>
@@ -26,7 +26,7 @@
                         v-model="credentials.password"
                         type="password"
                         :label="password"
-                        class="green-input"
+                        class="primary-input"
                       />
                     </v-flex>
                   </v-layout>
@@ -41,7 +41,7 @@
                       @click="submit"
                       :loading="isLoading"
                       class="mx-0 font-weight-light"
-                      color="success"
+                      color="primary"
                       block
                     >{{login}}</v-btn>
                   </v-flex>
@@ -50,7 +50,12 @@
                 <v-flex v-if="false" xs12 md4>
                   <v-layout wrap>
                     <v-flex xs12>
-                      <v-btn @click="googleLogin()" class="mx-0 font-weight-light" color="danger" block>
+                      <v-btn
+                        @click="googleLogin()"
+                        class="mx-0 font-weight-light"
+                        color="danger"
+                        block
+                      >
                         <fa-icon :icon="['fab', 'google']" size="lg" class="v-icon--left"/>
                         {{loginGoogle}}
                       </v-btn>

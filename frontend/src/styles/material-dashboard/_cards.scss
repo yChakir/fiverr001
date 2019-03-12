@@ -82,6 +82,7 @@
 @include card-header-color('green', $brand-success, $green-400, $green-600);
 @include card-header-color('orange', $brand-warning, $orange-400, $orange-600);
 @include card-header-color('purple', $brand-primary, $purple-400, $purple-600);
+@include card-header-color('primary', $brand-primary, $custom-client-blue-1, $custom-client-blue-2);
 
 .v-card--material-stats.v-card {
   .v-offset {

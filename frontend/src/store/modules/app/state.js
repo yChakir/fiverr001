@@ -1,4 +1,4 @@
 export default {
   drawer: null,
-  color: 'success',
+  color: 'primary',
 }

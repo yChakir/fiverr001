@@ -2,7 +2,7 @@
   <v-container fill-height fluid grid-list-xl>
     <v-layout justify-center wrap>
       <v-flex xs12 md10>
-        <material-card color="green">
+        <material-card color="primary">
           <v-form>
             <v-container py-0>
               <v-layout wrap>
@@ -18,7 +18,7 @@
                         v-model="vo.email"
                         :label="email"
                         :disabled="disabled.email"
-                        class="green-input"
+                        class="primary-input"
                       />
                     </v-flex>
                     <v-flex xs12>
@@ -29,7 +29,7 @@
                         :error-messages="errors.collect(name)"
                         v-model="vo.name"
                         :label="name"
-                        class="green-input"
+                        class="primary-input"
                       />
                     </v-flex>
                     <v-flex xs12>
@@ -39,7 +39,7 @@
                         :data-vv-name="message"
                         :error-messages="errors.collect(message)"
                         v-model="vo.message"
-                        class="green-input"
+                        class="primary-input"
                         :label="message"
                       />
                     </v-flex>
@@ -48,7 +48,7 @@
                         @click="submit"
                         :loading="isLoading"
                         class="mx-0 font-weight-light"
-                        color="success"
+                        color="primary"
                         block
                       >{{send}}</v-btn>
                     </v-flex>
