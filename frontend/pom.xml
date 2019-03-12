@@ -43,7 +43,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build node-sass</arguments>
                         </configuration>
                     </execution>
                     <execution>
