@@ -5,6 +5,7 @@
     app
     dark
     floating
+    right
     persistent
     mobile-break-point="991"
     width="260"
