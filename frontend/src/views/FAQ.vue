@@ -10,9 +10,9 @@
             <v-flex xs12>
               <v-expansion-panel v-model="panel" expand>
                 <v-expansion-panel-content v-for="(item, i) in items" :key="i" hide-actions>
-                  <div slot="header">{{item.question}}</div>
+                  <div slot="header" v-html="item.question"></div>
                   <v-card>
-                    <v-card-text class="grey lighten-3">{{item.answer}}</v-card-text>
+                    <v-card-text class="grey lighten-3" v-html="item.answer"></v-card-text>
                   </v-card>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -42,12 +42,14 @@ export default {
         }
       ];
 
-      return result.filter(
+      const filtered = result.filter(
         item =>
           !this.criteria ||
           (item.question.toLowerCase().includes(this.criteria.toLowerCase()) ||
             item.answer.toLowerCase().includes(this.criteria.toLowerCase()))
       );
+
+      return this.highlight(filtered, this.criteria);
     },
     panel() {
       return [...this.items.keys()].map(() => true);
@@ -61,6 +63,33 @@ export default {
     search() {
       return this.$t("FAQ.data.search");
     }
+  },
+  methods: {
+    highlight(array, criteria) {
+      if (array && criteria) {
+        const iQuery = new RegExp(criteria, "ig");
+        array.forEach(obj => {
+          obj.question = obj.question.replace(iQuery, function(
+            matchedTxt,
+            a,
+            b
+          ) {
+            return "<span class='highlight'>" + matchedTxt + "</span>";
+          });
+          obj.answer = obj.answer.replace(iQuery, function(matchedTxt, a, b) {
+            return "<span class='highlight'>" + matchedTxt + "</span>";
+          });
+        });
+      }
+      return array;
+    }
   }
 };
 </script>
+
+<style>
+.highlight {
+  background-color: yellow;
+}
+</style>
+
