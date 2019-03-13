@@ -62,9 +62,9 @@ export default {
       return this.$t(`${this.prefix}.success`);
     },
     avatar() {
-      let result = `${this.apiEndpint}api/v1/images/${this.profile.avatar}`;
+      let result = `${this.apiEndpint}/api/v1/images/${this.profile.avatar}`;
       if (this.profile.avatar === "default") {
-        result = `${this.apiEndpint}image/${this.profile.avatar}.jpg`;
+        result = `${this.apiEndpint}/image/${this.profile.avatar}.jpg`;
       }
       return result;
     }
