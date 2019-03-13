@@ -27,6 +27,7 @@
 <script>
 export default {
   data: () => ({
+    panel: [],
     criteria: ""
   }),
   computed: {
@@ -50,9 +51,6 @@ export default {
       );
 
       return this.highlight(filtered, this.criteria);
-    },
-    panel() {
-      return [...this.items.keys()].map(() => true);
     },
     title() {
       return this.$t("FAQ.data.title");
