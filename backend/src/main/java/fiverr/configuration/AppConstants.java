@@ -28,4 +28,7 @@ public class AppConstants {
 
     @Value("${app.front-end.path}")
     public static String FE_PATH;
+
+    @Value("${app.front-end.routes}")
+    public static String FE_ROUTES;
 }

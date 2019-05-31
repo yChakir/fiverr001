@@ -34,14 +34,14 @@
 </template>
 
 <script>
-import { API_ENDPOINT } from "@/config";
+import { BE_URL } from "@/config";
 import { mapState, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
       prefix: "Profile.card",
-      apiEndpint: API_ENDPOINT
+      apiEndpint: BE_URL
     };
   },
   created() {

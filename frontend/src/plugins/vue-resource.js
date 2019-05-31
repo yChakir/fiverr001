@@ -4,11 +4,11 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import router from '@/router'
 import store from '@/store'
-import { API_ENDPOINT } from '@/config'
+import { BE_URL } from '@/config'
 
 Vue.use(VueResource)
 
-Vue.http.options.root = API_ENDPOINT
+Vue.http.options.root = BE_URL
 
 const token = localStorage.getItem('token');
 if(token) {

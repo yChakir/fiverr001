@@ -46,8 +46,7 @@ export default {
       const filtered = result.filter(
         item =>
           !this.criteria ||
-          (item.question.toLowerCase().includes(this.criteria.toLowerCase()) ||
-            item.answer.toLowerCase().includes(this.criteria.toLowerCase()))
+          item.question.toLowerCase().includes(this.criteria.toLowerCase())
       );
 
       return this.highlight(filtered, this.criteria);
@@ -72,9 +71,6 @@ export default {
             a,
             b
           ) {
-            return "<span class='highlight'>" + matchedTxt + "</span>";
-          });
-          obj.answer = obj.answer.replace(iQuery, function(matchedTxt, a, b) {
             return "<span class='highlight'>" + matchedTxt + "</span>";
           });
         });

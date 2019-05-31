@@ -55,6 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             log.debug("attemptAuthentication() :: authentication failed, message = ", e.getMessage());
             response.setContentType("application/json;charset=UTF-8");
             ClientException exception = new ClientException(Translator.translate("exception.auth.bad-credentials"));
+            exception.setStackTrace(new StackTraceElement[]{});
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             writeQuietly(response, exception);
         } catch (InternalAuthenticationServiceException e) {
@@ -68,6 +69,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             log.debug("attemptAuthentication() :: authentication failed, message = ", e.getMessage());
             response.setContentType("application/json;charset=UTF-8");
             ServiceException exception = new ServiceException(Translator.translate("exception.internal-error"));
+            exception.setStackTrace(new StackTraceElement[]{});
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             writeQuietly(response, exception);
         }

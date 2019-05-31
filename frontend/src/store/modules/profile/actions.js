@@ -50,7 +50,7 @@ export default {
   editAvatar: function ({ commit }, vo) {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/v1/images/upload?avatar=true', vo).then(
-        response => {
+        () => {
           resolve()
         },
         response => {
